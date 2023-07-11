@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, BrowserRouter, Routes } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import PackagePage from "./pages/PackagePage";
+import ApprovePackagesPage from "./pages/ApprovePackagesPage.";
 import HeaderSite from "./components/HeaderSite";
 
 
@@ -15,7 +16,12 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <HeaderSite></HeaderSite>
-        <PackagePage></PackagePage>
+        <BrowserRouter>
+        <Routes>
+          <Route index element={<PackagePage></PackagePage>}></Route>
+          <Route path="/admin" element={<ApprovePackagesPage></ApprovePackagesPage>}></Route>
+        </Routes>
+        </BrowserRouter>
       </div>
     </ApolloProvider>
   );

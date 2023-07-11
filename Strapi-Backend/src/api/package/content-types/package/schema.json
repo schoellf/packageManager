@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "packages",
+  "info": {
+    "singularName": "package",
+    "pluralName": "packages",
+    "displayName": "Package",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "packageName": {
+      "type": "string"
+    },
+    "packageSize": {
+      "type": "biginteger"
+    },
+    "packagePic": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "packageVersion": {
+      "type": "string"
+    }
+  }
+}

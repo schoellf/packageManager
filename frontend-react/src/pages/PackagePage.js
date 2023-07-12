@@ -27,23 +27,49 @@ export default function PackagePage() {
   if (error) return <p>error!</p>
 
 
+  function handleCheckedOrUncheckedPackage(e) {
+
+  }
+
+
   return (
     <div>
-      <div className='searchbar'><input style={{ width: '300px', height: '30px', borderRadius: '5px', border: 'solid darkblue', marginBottom: '10px' }}
-        type="text" placeholder="Suchen..." value={searchText} onChange={(e) => setSearchText(e.target.value)} /></div>
+      <div className='searchbar'>
+        <input
+          style={{
+            width: '300px',
+            height: '30px',
+            borderRadius: '5px',
+            border: 'solid darkblue',
+            marginBottom: '10px'
+          }}
+          type="text"
+          placeholder="Suchen..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {searchedPackages.map((pkg) => (
-          <div key={pkg.id} className="package-card" style={{ flex: '0 0 170px', margin: '20px' }}>
-            <div className="packagePicture" style={{ float: 'left', marginRight: '10px' }}>
+          <div
+            key={pkg.id}
+            className="package-card"
+            style={{ flex: '0 0 170px', margin: '20px' }}
+          >
+            <div
+              className="packagePicture"
+              style={{ float: 'left', marginRight: '10px' }}
+            >
               <img src={pkg.attributes.packagePic} />
             </div>
             <div className="packageName">
               <h2>{pkg.attributes.packageName}</h2>
             </div>
             <small>{pkg.attributes.packageSize + "kb"}</small>
+            <input type="checkbox" style={{ float: 'right' }} onChange={handleCheckedOrUncheckedPackage}/>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }

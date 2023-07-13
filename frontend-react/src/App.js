@@ -18,8 +18,8 @@ function App() {
         <HeaderSite></HeaderSite>
         <BrowserRouter>
         <Routes>
-          <Route index element={<PackagePage></PackagePage>}></Route>
-          <Route path="/admin" element={<ApprovePackagesPage></ApprovePackagesPage>}></Route>
+          <Route index element={<ApprovePackagesPage></ApprovePackagesPage>}></Route>
+          <Route path="/admin" element={<PackagePage></PackagePage>}></Route>
         </Routes>
         </BrowserRouter>
       </div>

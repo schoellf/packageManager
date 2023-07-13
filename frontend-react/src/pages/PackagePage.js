@@ -5,13 +5,12 @@ import { useState } from 'react';
 
 
 const PACKAGES = gql`
-query GetReviews {
+query GetPackages {
   packages {
     data {
       id,
       attributes { 
-        packageName,
-        packageSize,
+        name
       }
     }
   }
@@ -21,7 +20,7 @@ query GetReviews {
 export default function PackagePage() {
   const { loading, error, data } = useQuery(PACKAGES);
   const [searchText, setSearchText] = useState("");
-  const searchedPackages = data?.packages.data.filter(pkg => pkg.attributes.packageName.toUpperCase().includes(searchText.toUpperCase()) || searchText === "")
+  const searchedPackages = data?.packages.data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === "")
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
@@ -57,15 +56,15 @@ export default function PackagePage() {
             style={{ flex: '0 0 170px', margin: '20px' }}
           >
             <div
-              className="packagePicture"
+              className="packageDescr"
               style={{ float: 'left', marginRight: '10px' }}
             >
-              <img src={pkg.attributes.packagePic} />
+              i
             </div>
             <div className="packageName">
-              <h2>{pkg.attributes.packageName}</h2>
+              <h2>{pkg.attributes.name}</h2>
             </div>
-            <small>{pkg.attributes.packageSize + "kb"}</small>
+            <small>{pkg.attributes.url}</small>
             <input type="checkbox" style={{ float: 'right' }} onChange={handleCheckedOrUncheckedPackage}/>
           </div>
         ))}

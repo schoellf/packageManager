@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "packages",
+  "collectionName": "approved_packages",
   "info": {
-    "singularName": "package",
-    "pluralName": "packages",
-    "displayName": "Package",
+    "singularName": "approved-package",
+    "pluralName": "approved-packages",
+    "displayName": "approvedPackage",
     "description": ""
   },
   "options": {
@@ -15,14 +15,14 @@
     "name": {
       "type": "string"
     },
-    "description": {
-      "type": "string"
-    },
     "identifier": {
       "type": "string"
     },
     "versions": {
       "type": "json"
+    },
+    "description": {
+      "type": "text"
     },
     "pic": {
       "type": "media",

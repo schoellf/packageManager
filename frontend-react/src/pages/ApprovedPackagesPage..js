@@ -22,26 +22,28 @@ export default function ApprovePackagesPage() {
   const { loading, error, data } = useQuery(APPROVEDPACKAGES);
   console.log(data);
   const [searchText, setSearchText] = useState("");
-  const [selectedPaths, setSelectedPaths] = useState([]);
+  const [selectedPackages, setSelectedPackages] = useState([[]]);
   const searchedPackages = data?data["approvedPackages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
 
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
 
-  console.log(selectedPaths);
+  console.log(selectedPackages);
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
 
     if(e.target.checked) {
       //add to post request
-      setSelectedPaths([...selectedPaths, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
+      setSelectedPackages([...selectedPackages, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
+      
     }
     else {
       //delete from post request
-      let newSelectedPaths = [...selectedPaths];
-      newSelectedPaths.splice(newSelectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
-      setSelectedPaths([...newSelectedPaths])
+      
+      //let newSelectedPaths = [...selectedPaths];
+      //newSelectedPaths.splice(newSelectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
+      //setSelectedPaths([...newSelectedPaths])
     }
   }
 

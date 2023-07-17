@@ -1,8 +1,10 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { useState } from 'react';
-
-
+import PackageList from '../components/PackageList';
+import "./PackagePage.css"
+import "../../node_modules/react-bootstrap/Button"
+import Button from '../../node_modules/react-bootstrap/Button';
 
 const PACKAGES = gql`
 query GetPackages {
@@ -11,6 +13,18 @@ query GetPackages {
       id,
       attributes { 
         name
+        versions
+        identifier
+      }
+    }
+  }
+  approvedPackages {
+    data {
+      id,
+      attributes { 
+        name
+        versions
+        identifier
       }
     }
   }
@@ -19,21 +33,22 @@ query GetPackages {
 
 export default function PackagePage() {
   const { loading, error, data } = useQuery(PACKAGES);
-  const [searchText, setSearchText] = useState("");
-  const searchedPackages = data?.packages.data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === "")
 
+  const [selectedPage, setSelectedPage] = useState("AV");
+
+  const [searchText, setSearchText] = useState("");
+  const searchedPackagesAV = data?.packages.data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === "")
+  const searchedPackagesAP = data?.approvedPackages.data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === "")
+
+  // selectedPage=="AP"?[]:
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
 
 
-  function handleCheckedOrUncheckedPackage(e) {
-
-  }
-
 
   return (
-    <div>
-      <div className='searchbar'>
+    <div style={{height:"90%", overflow:"hidden"}}>
+      <div className='searchbar'> 
         <input
           style={{
             width: '300px',
@@ -48,28 +63,17 @@ export default function PackagePage() {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {searchedPackages.map((pkg) => (
-          <div
-            key={pkg.id}
-            className="package-card"
-            style={{ flex: '0 0 170px', margin: '20px' }}
-          >
-            <div
-              className="packageDescr"
-              style={{ float: 'left', marginRight: '10px' }}
-            >
-              i
-            </div>
-            <div className="packageName">
-              <h2>{pkg.attributes.name}</h2>
-            </div>
-            <small>{pkg.attributes.url}</small>
-            <input type="checkbox" style={{ float: 'right' }} onChange={handleCheckedOrUncheckedPackage}/>
-          </div>
-        ))}
+      <div id='divChangeList'>
+        <Button className='btnChangeList' style={{justifySelf: "right", backgroundColor: selectedPage=="AP"?"#b49bc5":"transparent"}} onClick={()=>setSelectedPage("AP")}>Approved</Button>
+        <Button className='btnChangeList' style={{justifySelf: "left", backgroundColor: selectedPage=="AV"?"#b49bc5":"transparent"}} onClick={()=>setSelectedPage("AV")}>Available</Button>
       </div>
-      <button>Push Approved</button>
+      <div id='pageSlider' style={{position: "relative",left: selectedPage=="AP"?"0%":"-100%"}}>
+        <PackageList packages={searchedPackagesAP} selectedPaths={[]} setSelectedPaths={()=>{}}></PackageList>
+        <PackageList packages={searchedPackagesAV} selectedPaths={[]} setSelectedPaths={()=>{}}></PackageList>
+      </div>
+      <div id='divSubmit'>
+          <button id='btnSubmit'>Remove Selected</button>
+      </div>
     </div>
   );
 }

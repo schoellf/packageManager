@@ -1,0 +1,54 @@
+#pageSlider{
+    display: grid;
+    grid-template-columns: 100% 100%;
+    width: 100%;
+    margin: 0 30px;
+    height: 70%;
+    transition: 0.5s;
+}
+
+
+
+.searchbar{
+    display: grid;
+    place-items: center;
+    height: 10%;
+}
+
+#divChangeList{
+    display: grid;
+    place-items: center;
+    width: 100%;
+    grid-template-rows: 100%;
+    overflow: hidden;
+    height: 5%;
+}
+
+.btnChangeList{
+    grid-row: 1;
+    margin: 10px;
+    width: 150px;
+    border: none;
+    border-bottom: thick solid #8e2ad6;
+    font-weight: bold;
+}
+
+.btnChangeList:active{
+    background-color: #b49bc5;
+}
+
+#divSubmit{
+    display: grid;
+    place-items: center;
+    height: 15%;
+}
+
+#btnSubmit{
+    height: 50%;
+    width: 50%;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 30px;
+    border: thin solid #8e2ad6;
+
+}

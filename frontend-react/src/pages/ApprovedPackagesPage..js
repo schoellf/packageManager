@@ -26,28 +26,24 @@ export default function ApprovePackagesPage() {
   const { loading, error, data } = useQuery(APPROVEDPACKAGES);
   console.log(data);
   const [searchText, setSearchText] = useState("");
-  const [selectedPackages, setSelectedPackages] = useState([[]]);
+  const [selectedPaths, setSelectedPackage] = useState([]);
   const searchedPackages = data?data["approvedPackages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
 
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
 
-  console.log(selectedPackages);
+
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
-
     if(e.target.checked) {
       //add to post request
-      setSelectedPackages([...selectedPackages, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
       
     }
     else {
       //delete from post request
-      
-      //let newSelectedPaths = [...selectedPaths];
       //newSelectedPaths.splice(newSelectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
-      //setSelectedPaths([...newSelectedPaths])
+
     }
   }
 
@@ -74,7 +70,7 @@ export default function ApprovePackagesPage() {
         />
       </div>
       <div className='listOfEntries'>
-        <PackageList packages={searchedPackages} selectedPaths={[]} setSelectedPaths={() => { }}></PackageList>
+        <PackageList packages={searchedPackages} selectedPaths={selectedPaths} setSelectedPaths={setSelectedPaths}></PackageList>
       </div>
       <div id='divSubmit'>
         <button id='btnSubmit' onClick={handleDownload}>Download packages</button>

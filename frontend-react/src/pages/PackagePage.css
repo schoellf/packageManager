@@ -12,12 +12,15 @@
     display: grid;
     place-items: center;
     height: 5%;
+    width: 40%;
+    float: left;
 }
 
 #divChangeList{
     display: grid;
+    float: left;
     place-items: center;
-    width: 100%;
+    width: 50%;
     grid-template-rows: 100%;
     overflow: hidden;
     height: 10%;

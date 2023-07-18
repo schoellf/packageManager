@@ -1,7 +1,6 @@
 .packageDescr{
     background: #8e2ad6;
     position: absolute;
-    display: grid;
     top:0;
     left: 0px;
     transition: 1s;
@@ -11,12 +10,11 @@
     height: 23px;
     text-align: center;
     color: white;
-}
-
-.packageDescr:hover{
-    width: 100%;
-    height: 250%;
-    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    margin-right: 10px;
 }
 
 .package-card {

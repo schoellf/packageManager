@@ -1,8 +1,12 @@
 import "./PackageList.css"
 import imagePath from "../pics/info.png"
+import { useState } from "react";
 
 export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){
+
+  const [openedDescr, setOpenedDescr] = useState(undefined);
  
+
   function handleCheckedOrUncheckedPackage(e, pkg) {
     console.log("handle")
     if(e.target.checked) {
@@ -18,8 +22,8 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
   }
 
 
-  function handleOnPicClick(e, pkg) {
-
+  function handleOpenDescr(identifier) {
+    setOpenedDescr(identifier);
   }
 
 
@@ -31,11 +35,8 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
         className="package-card"
         style={{ flex: '0 0 150px', margin: '20px' }}
       >
-          <div
-            className="packageDescr"
-            style={{ float: 'left', marginRight: '10px' }}
-          >
-            <i style={{width: '100%', height: '100%'}} class="bi bi-question"></i>
+        <div style={{width: pkg.id == openedDescr ? '100%': 'initial',  height: pkg.id == openedDescr ? '250%': 'initial',  zIndex: pkg.id == openedDescr ? '10' : 'initial'}} onClick={() => handleOpenDescr(pkg.id)} className="packageDescr">
+            <i style={{fontSize: '20px'}} class="bi bi-question"></i>
         </div>
 
 

@@ -35,8 +35,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
             className="packageDescr"
             style={{ float: 'left', marginRight: '10px' }}
           >
-            <img className="imgInfoField" onClick={handleOnPicClick} src={imagePath}></img>
-            <div className="testDescr" ></div>
+            <i style={{width: '100%', height: '100%'}} class="bi bi-question"></i>
         </div>
 
 

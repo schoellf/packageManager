@@ -1,6 +1,8 @@
+import './ApprovedPackagesPage.css'
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { useState } from 'react';
+import PackageList from '../components/PackageList';
 
 
 
@@ -53,7 +55,7 @@ export default function ApprovePackagesPage() {
   }
 
   return (
-    <div>
+    <div style={{height:"90%", overflow:"hidden"}}>
       <div className='searchbar'>
         <input
           style={{
@@ -69,28 +71,12 @@ export default function ApprovePackagesPage() {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {searchedPackages.map((pkg) => (
-          <div
-            key={pkg.id}
-            className="package-card"
-            style={{ flex: '0 0 170px', margin: '20px' }}
-          >
-            <div
-              className="packageDescr"
-              style={{ float: 'left', marginRight: '10px' }}
-            >
-              <img src={pkg.attributes.pic} />
-            </div>
-            <div className="packageName">
-              <h2>{pkg.attributes.name}</h2>
-            </div>
-            <small>{pkg.attributes.url}</small>
-            <input type="checkbox" style={{ float: 'right' }} onChange={e => {handleCheckedOrUncheckedPackage(e, pkg)}}/>
-          </div>
-        ))}
+      <div className='listOfEntries'>
+        <PackageList packages={searchedPackages} selectedPaths={[]} setSelectedPaths={() => { }}></PackageList>
       </div>
-      <button onClick={handleDownload}>Button</button>
+      <div id='divSubmit'>
+        <button id='btnSubmit' onClick={handleDownload}>Download packages</button>
+      </div>
     </div>
   );
 }

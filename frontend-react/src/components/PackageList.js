@@ -1,4 +1,5 @@
 import "./PackageList.css"
+import imagePath from "../pics/info (2).png"
 
 export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){
  
@@ -17,6 +18,10 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
   }
 
 
+  function handleOnPicClick(e, pkg) {
+
+  }
+
 
   return (
     <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow:"auto"}}>
@@ -26,12 +31,19 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
         className="package-card"
         style={{ flex: '0 0 150px', margin: '20px' }}
       >
-        <div
-          className="packageDescr"
-          style={{ float: 'left', marginRight: '10px' }}
-        >
-          <img src={pkg.attributes.pic} />
+
+      <div className="collapsible">
+          <div
+            className="packageDescr"
+            style={{ float: 'left', marginRight: '10px' }}
+          >
+            <img className="imgInfoField" onClick={handleOnPicClick} src={imagePath}></img>
+          </div>
+          <div className="collapsible-text">
+            <p>text</p>
+          </div>
         </div>
+
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>
         </div>

@@ -26,7 +26,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
   }
 
   function handleCloseDescr() {
-    setOpenedDescr(undefined);
+    // setOpenedDescr(undefined);
   }
 
 
@@ -39,8 +39,18 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
         style={{ flex: '0 0 150px', margin: '20px' }}
       >
         <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
-          {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} class="bi bi-question"></i>}
-          {pkg.id === openedDescr && <p className="descriptionTag">{<span><b>{pkg.attributes.name}</b><br></br>{pkg.attributes.description}</span>}</p>}
+          {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} className="bi bi-question"></i>}
+          {pkg.id === openedDescr && <p className="descriptionTag">{<span>
+            <b>{pkg.attributes.name}</b><br></br>
+            <i>Versions:</i>
+            <ul className="listVersions">
+              {Object.keys(pkg.attributes.versions).map(v=><li>{v}</li>)}
+            </ul>
+            <br></br>
+            <i>Description:</i>
+            <br></br>
+            {pkg.attributes.description}
+            </span>}</p>}
         </div>
 
         <div className="packageName">

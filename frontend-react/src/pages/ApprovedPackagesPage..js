@@ -24,7 +24,6 @@ query GetApprovedPkgs {
 
 export default function ApprovePackagesPage() {
   const { loading, error, data } = useQuery(APPROVEDPACKAGES);
-  console.log(data);
   const [searchText, setSearchText] = useState("");
   const [selectedPackages, setSelectedPackages] = useState([[]]);
   const searchedPackages = data?data["approvedPackages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
@@ -33,7 +32,6 @@ export default function ApprovePackagesPage() {
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
 
-  console.log(selectedPackages);
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
 

@@ -75,6 +75,18 @@ query GetPackages {
     }
   }
 
+  function handleListChange(){
+    
+    setSelectedPaths([]);
+
+    if(selectedPage === "AP"){
+      setSelectedPage("AV");
+      setQueryFilter(searchText);
+    }else{
+      setSelectedPage("AP")
+    }
+  }
+
   return (
     <div style={{height:"90%", overflow:"hidden"}} onClick={()=>console.log(selectedPaths)}>
       <div id='divControl'>
@@ -96,8 +108,8 @@ query GetPackages {
           />
           {selectedPage == "AV" && <button style={{gridRow:1, justifySelf: "left", height: "30px", marginLeft: "10px"}} onClick={setQueryText}><i className="bi bi-arrow-return-left"></i></button>}      </div>
         <div id='divChangeList'>
-          <Button className='btnChangeList' style={{justifySelf: "right", backgroundColor: selectedPage=="AP"?"#b49bc5":"transparent"}} onClick={()=>{setSelectedPage("AP");setSelectedPaths([])}}>Approved</Button>
-          <Button className='btnChangeList' style={{justifySelf: "left", backgroundColor: selectedPage=="AV"?"#b49bc5":"transparent"}} onClick={()=>{setSelectedPage("AV");setSelectedPaths([])}}>Available</Button>
+          <Button className='btnChangeList' style={{justifySelf: "right", backgroundColor: selectedPage=="AP"?"#b49bc5":"transparent"}} onClick={handleListChange}>Approved</Button>
+          <Button className='btnChangeList' style={{justifySelf: "left", backgroundColor: selectedPage=="AV"?"#b49bc5":"transparent"}} onClick={handleListChange}>Available</Button>
         </div>
       </div>
       <div id='pageSlider' style={{position: "relative",left: selectedPage=="AP"?"0%":"-100%"}}>

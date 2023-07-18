@@ -1,0 +1,26 @@
+.searchbar{
+    display: grid;
+    place-items: center;
+    height: 10%;
+}
+
+.listOfEntries{
+    width: 100%;
+    overflow: hidden;
+    height: 75%;
+}
+
+#divSubmit{
+    display: grid;
+    place-items: center;
+    height: 15%;
+}
+
+#btnSubmit{
+    height: 50%;
+    width: 50%;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 30px;
+    border: thin solid #8e2ad6;
+}

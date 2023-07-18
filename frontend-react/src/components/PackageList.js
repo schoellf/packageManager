@@ -31,18 +31,13 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
         className="package-card"
         style={{ flex: '0 0 150px', margin: '20px' }}
       >
-
-      <div className="collapsible">
           <div
             className="packageDescr"
             style={{ float: 'left', marginRight: '10px' }}
           >
             <img className="imgInfoField" onClick={handleOnPicClick} src={imagePath}></img>
           </div>
-          <div className="collapsible-text">
-            <p>text</p>
-          </div>
-        </div>
+
 
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>

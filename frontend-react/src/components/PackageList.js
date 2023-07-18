@@ -31,6 +31,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
           style={{ float: 'left', marginRight: '10px' }}
         >
           <img src={pkg.attributes.pic} />
+          <div className="testDescr" ></div>
         </div>
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>

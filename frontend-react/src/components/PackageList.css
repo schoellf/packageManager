@@ -1,0 +1,14 @@
+.testDescr{
+    background-color: green;
+    width:100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    transition: 1s;
+    z-index: 100;
+}
+
+.testDescr:hover{
+    width: 300px;
+    height: 300px;
+}

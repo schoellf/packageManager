@@ -2,9 +2,9 @@ import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { useState } from 'react';
 import PackageList from '../components/PackageList';
+import "./PackagePage.css"
 import "../../node_modules/react-bootstrap/Button"
 import Button from '../../node_modules/react-bootstrap/Button';
-import "./PackagePage.css"
 
 
 export default function PackagePage() {
@@ -76,7 +76,7 @@ query GetPackages {
   }
 
   return (
-    <div id='packagePageContainer' onClick={()=>console.log(selectedPaths)}>
+    <div style={{height:"90%", overflow:"hidden"}} onClick={()=>console.log(selectedPaths)}>
       <div className='searchbar'> 
         <input
           style={{

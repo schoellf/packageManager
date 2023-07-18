@@ -29,14 +29,12 @@ a {
   color: #8e2ad6;
   border-bottom: 1px dotted;
 }
-.header-site{
-  height: 10%;
-}
 .header-site h1 {
   font-size: 1.5em;
   color: #8e2ad6;
   padding-bottom: 10px;
   border-bottom: 2px solid;
+  height: 10%;
 }
 
 

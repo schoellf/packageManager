@@ -1,22 +1,22 @@
-.searchbarAP{
+.searchbar{
     display: grid;
     place-items: center;
     height: 10%;
 }
 
-.listOfEntriesAP{
+.listOfEntries{
     width: 100%;
     overflow: hidden;
     height: 75%;
 }
 
-#divSubmitAP{
+#divSubmit{
     display: grid;
     place-items: center;
     height: 15%;
 }
 
-#btnSubmitAP{
+#btnSubmit{
     height: 50%;
     width: 50%;
     font-size: large;

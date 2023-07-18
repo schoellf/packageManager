@@ -1,47 +1,26 @@
-#packagePageContainer{
-    place-items: center;
-    height: 90%;
-    overflow: hidden;
-    display: grid;
-    grid-template-rows: 10% 75% 15%;
-    grid-template-columns: 100%;
-}
-
 #pageSlider{
-    grid-row: 2;
-    grid-column-start: 1;
-    grid-column-end: 3;
     display: grid;
     grid-template-columns: 100% 100%;
     width: 100%;
-    height: 100%;
+    height: 70%;
     transition: 0.5s;
 }
 
 
 
 .searchbar{
-    width: fit-content;
-    grid-row: 1;
-    grid-column: 1;
     display: grid;
     place-items: center;
-    height: 100%;
-    justify-self: left;
-    margin-left: 20px;
+    height: 5%;
 }
 
 #divChangeList{
-    justify-self: center;
-    align-self: last baseline;
-    grid-row: 1;
-    grid-column: 1;
-    width: fit-content;
-    height: fit-content;
     display: grid;
     place-items: center;
+    width: 100%;
     grid-template-rows: 100%;
     overflow: hidden;
+    height: 10%;
 }
 
 .btnChangeList{
@@ -60,7 +39,7 @@
 #divSubmit{
     display: grid;
     place-items: center;
-    height: 10%;
+    height: 15%;
 }
 
 #btnSubmit{

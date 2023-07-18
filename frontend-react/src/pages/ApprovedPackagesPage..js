@@ -58,7 +58,7 @@ export default function ApprovePackagesPage() {
 
   return (
     <div style={{height:"90%", overflow:"hidden"}}>
-      <div className='searchbarAP'>
+      <div className='searchbar'>
         <input
           style={{
             width: '300px',
@@ -73,11 +73,11 @@ export default function ApprovePackagesPage() {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <div className='listOfEntriesAP'>
+      <div className='listOfEntries'>
         <PackageList packages={searchedPackages} selectedPaths={[]} setSelectedPaths={() => { }}></PackageList>
       </div>
-      <div id='divSubmitAP'>
-        <button id='btnSubmitAP' onClick={handleDownload}>Download packages</button>
+      <div id='divSubmit'>
+        <button id='btnSubmit' onClick={handleDownload}>Download packages</button>
       </div>
     </div>
   );

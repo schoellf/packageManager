@@ -39,7 +39,6 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
             <div className="testDescr" ></div>
         </div>
 
-
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>
         </div>

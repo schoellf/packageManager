@@ -39,7 +39,6 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
             <i style={{fontSize: '20px'}} class="bi bi-question"></i>
         </div>
 
-
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>
         </div>

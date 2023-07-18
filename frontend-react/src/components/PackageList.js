@@ -36,7 +36,8 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
             style={{ float: 'left', marginRight: '10px' }}
           >
             <img className="imgInfoField" onClick={handleOnPicClick} src={imagePath}></img>
-          </div>
+            <div className="testDescr" ></div>
+        </div>
 
 
         <div className="packageName">

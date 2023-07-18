@@ -30,7 +30,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
     setOpenedDescr(undefined);
   }
 
-  console.log(packages)
+
   return (
     <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow:"auto"}}>
     {packages?.map((pkg) => (
@@ -39,9 +39,9 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
         className="package-card"
         style={{ flex: '0 0 150px', margin: '20px' }}
       >
-        <div style={{width: pkg.id == openedDescr ? '100%': '20px',  height: pkg.id == openedDescr ? '250%': '20px',  zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white': '#8e2ad6'}} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
-            {pkg.id !== openedDescr && <i style={{fontSize: '20px'}} class="bi bi-question"></i>}
-            {pkg.id === openedDescr && <p className="descriptionTag">{pkg.attributes.description}</p>}
+        <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
+          {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} class="bi bi-question"></i>}
+          {pkg.id === openedDescr && <p className="descriptionTag">{pkg.attributes.description}</p>}
         </div>
 
         <div className="packageName">
@@ -52,7 +52,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
       </div>
     ))}
     
-      <button style={{margin: "20px", width: "150px", height: "80px"}} onClick={()=>{if(onLoadMore){onLoadMore()}}}>Load More</button>
+      {onLoadMore && <button style={{margin: "20px", width: "150px", height: "80px"}} onClick={()=>{if(onLoadMore){onLoadMore()}}}>Load More</button>}
     </div>
   );
 }

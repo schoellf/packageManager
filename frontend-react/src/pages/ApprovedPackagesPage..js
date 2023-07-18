@@ -15,7 +15,8 @@ query GetApprovedPkgs {
       attributes { 
         name
         versions
-        
+        description
+        identifier
       }
     }
   }

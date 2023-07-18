@@ -22,6 +22,7 @@ query GetPackages {
         name
         versions
         identifier
+        description
       }
     }
   }
@@ -32,6 +33,7 @@ query GetPackages {
         name
         versions
         identifier
+        description
       }
     }
   }

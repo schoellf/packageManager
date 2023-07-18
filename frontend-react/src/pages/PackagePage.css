@@ -2,9 +2,9 @@
     display: grid;
     grid-template-columns: 100% 100%;
     width: 100%;
-    margin: 0 30px;
     height: 70%;
     transition: 0.5s;
+    border: thin solid black;
 }
 
 
@@ -12,7 +12,7 @@
 .searchbar{
     display: grid;
     place-items: center;
-    height: 10%;
+    height: 5%;
 }
 
 #divChangeList{
@@ -21,7 +21,7 @@
     width: 100%;
     grid-template-rows: 100%;
     overflow: hidden;
-    height: 5%;
+    height: 10%;
 }
 
 .btnChangeList{
@@ -50,5 +50,13 @@
     font-weight: bold;
     border-radius: 30px;
     border: thin solid #8e2ad6;
+    transition: 0.5s;
+}
 
+#btnSubmit:hover{
+    box-shadow: inset 0px 0px 10px 5px rgba(142,42,214,1);
+}
+
+#btnSubmit:active{
+    background-color: #8e2ad6;
 }

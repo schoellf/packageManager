@@ -1,9 +1,9 @@
 import "./PackageList.css"
 
-export default function PackageList({packages, selectedPaths, setSelectedPaths}){
+export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){
  
   function handleCheckedOrUncheckedPackage(e, pkg) {
-
+    console.log("handle")
     if(e.target.checked) {
       //add to post request
       setSelectedPaths([...selectedPaths, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
@@ -17,13 +17,14 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths})
   }
 
 
+
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content" }}>
+    <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow:"auto"}}>
     {packages?.map((pkg) => (
       <div
         key={pkg.id}
         className="package-card"
-        style={{ flex: '0 0 170px', margin: '20px' }}
+        style={{ flex: '0 0 150px', margin: '20px' }}
       >
         <div
           className="packageDescr"
@@ -35,9 +36,11 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths})
           <h2>{pkg.attributes.name}</h2>
         </div>
         <small>{pkg.attributes.url}</small>
-        <input type="checkbox" style={{ float: 'right' }} onChange={e => {handleCheckedOrUncheckedPackage(e, pkg)}}/>
+        <input type="checkbox" style={{ float: 'right' }} onChange={e => {handleCheckedOrUncheckedPackage(e, pkg)}} checked={selectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]])!=-1}/>
       </div>
     ))}
+    
+      <button style={{margin: "20px", width: "150px", height: "80px"}} onClick={()=>{if(onLoadMore){onLoadMore()}}}>Load More</button>
     </div>
   );
 }

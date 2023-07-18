@@ -77,26 +77,28 @@ query GetPackages {
 
   return (
     <div style={{height:"90%", overflow:"hidden"}} onClick={()=>console.log(selectedPaths)}>
-      <div className='searchbar'> 
-        <input
-          style={{
-            width: '300px',
-            height: '30px',
-            borderRadius: '5px',
-            border: 'solid darkblue',
-            gridRow: 1,
-            justifySelf: selectedPage=="AV"?"right":"center"
-          }}
-          type="text"
-          placeholder="Suchen..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          onKeyDown={handleEnter}
-        />
-        {selectedPage == "AV" && <button style={{gridRow:1, justifySelf: "left", height: "30px", marginLeft: "10px"}} onClick={setQueryText}><i className="bi bi-arrow-return-left"></i></button>}      </div>
-      <div id='divChangeList'>
-        <Button className='btnChangeList' style={{justifySelf: "right", backgroundColor: selectedPage=="AP"?"#b49bc5":"transparent"}} onClick={()=>{setSelectedPage("AP");setSelectedPaths([])}}>Approved</Button>
-        <Button className='btnChangeList' style={{justifySelf: "left", backgroundColor: selectedPage=="AV"?"#b49bc5":"transparent"}} onClick={()=>{setSelectedPage("AV");setSelectedPaths([])}}>Available</Button>
+      <div id='divControl'>
+        <div className='searchbar'> 
+          <input
+            style={{
+              width: '300px',
+              height: '30px',
+              borderRadius: '5px',
+              border: 'solid darkblue',
+              gridRow: 1,
+              justifySelf: selectedPage=="AV"?"right":"center"
+            }}
+            type="text"
+            placeholder="Suchen..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={handleEnter}
+          />
+          {selectedPage == "AV" && <button style={{gridRow:1, justifySelf: "left", height: "30px", marginLeft: "10px"}} onClick={setQueryText}><i className="bi bi-arrow-return-left"></i></button>}      </div>
+        <div id='divChangeList'>
+          <Button className='btnChangeList' style={{justifySelf: "right", backgroundColor: selectedPage=="AP"?"#b49bc5":"transparent"}} onClick={()=>{setSelectedPage("AP");setSelectedPaths([])}}>Approved</Button>
+          <Button className='btnChangeList' style={{justifySelf: "left", backgroundColor: selectedPage=="AV"?"#b49bc5":"transparent"}} onClick={()=>{setSelectedPage("AV");setSelectedPaths([])}}>Available</Button>
+        </div>
       </div>
       <div id='pageSlider' style={{position: "relative",left: selectedPage=="AP"?"0%":"-100%"}}>
         <PackageList packages={searchedPackagesAP} selectedPaths={[]} setSelectedPaths={()=>{}}></PackageList>

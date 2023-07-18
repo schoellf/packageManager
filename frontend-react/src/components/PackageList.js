@@ -40,7 +40,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
       >
         <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
           {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} class="bi bi-question"></i>}
-          {pkg.id === openedDescr && <p className="descriptionTag">{pkg.attributes.description}</p>}
+          {pkg.id === openedDescr && <p className="descriptionTag">{<span><b>{pkg.attributes.name}</b><br></br>{pkg.attributes.description}</span>}</p>}
         </div>
 
         <div className="packageName">

@@ -58,7 +58,7 @@ export default function ApprovePackagesPage() {
 
   return (
     <div style={{height:"90%", overflow:"hidden"}}>
-      <div className='searchbar'>
+      <div className='searchbarAP'>
         <input
           style={{
             width: '300px',

@@ -6,24 +6,52 @@
     transition: 0.5s;
 }
 
-
+#divControl{
+    height: 10%;
+    width: 100%;
+    display: grid;
+}
 
 .searchbar{
+    grid-row: 1;
+    grid-column: 1;
     display: grid;
     place-items: center;
-    height: 5%;
-    width: 40%;
+    height: 100%;
+    width: fit-content;
     float: left;
+    place-self: left;
+    margin-left: 20px;
 }
 
 #divChangeList{
+    grid-column: 1;
+    height: 100%;
+    grid-row: 1;
+    place-self: center;
+    align-self: last baseline;
+    height: fit-content;
     display: grid;
-    float: left;
+    float: right;
     place-items: center;
-    width: 50%;
+    width: fit-content;
     grid-template-rows: 100%;
     overflow: hidden;
-    height: 10%;
+
+}
+
+@media screen and (max-width: 1200px){
+    #divChangeList{
+        grid-row: 2;
+    }
+
+    #divControl{
+        height: 15%;
+    }
+
+    .searchbar{
+        place-self: center;
+    }
 }
 
 .btnChangeList{

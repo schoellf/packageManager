@@ -48,11 +48,12 @@ a {
 }
 .package-card .packageDescr {
   position: absolute;
+  display: grid;
   top: 0px;
   left: 0px;
   background: #8e2ad6;
   font-size: 3em;
-  width: 23px;
+  width: 15px;
   height: 23px;
   text-align: center;
   color: white;

@@ -1,5 +1,4 @@
 import "./PackageList.css"
-import imagePath from "../pics/info.png"
 import { useState } from "react";
 
 export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){

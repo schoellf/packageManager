@@ -6,7 +6,6 @@ import PackageList from '../components/PackageList';
 
 
 
-
 const APPROVEDPACKAGES = gql`
 query GetApprovedPkgs {
   approvedPackages {
@@ -24,7 +23,6 @@ query GetApprovedPkgs {
 
 export default function ApprovePackagesPage() {
   const { loading, error, data } = useQuery(APPROVEDPACKAGES);
-  console.log(data);
   const [searchText, setSearchText] = useState("");
   const [selectedPaths, setSelectedPackage] = useState([]);
   const searchedPackages = data?data["approvedPackages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
@@ -32,7 +30,6 @@ export default function ApprovePackagesPage() {
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
-
 
 
   function handleCheckedOrUncheckedPackage(e, pkg) {

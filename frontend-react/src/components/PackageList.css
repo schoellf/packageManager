@@ -43,11 +43,16 @@
     padding-right: 15px;
     position: absolute;
     top: 0;
+    left: 0;
     margin: 0;
     text-align: left;
     height: 100%;
+    width: 100%;
     overflow: auto;
   }
 
-  
+
+  .listVersions{
+    margin: 0;
+  }
   

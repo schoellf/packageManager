@@ -23,6 +23,7 @@ h1,h2,h3,h4 {
   padding: 20px;
   box-sizing: border-box;
   height: 100%;
+  overflow: hidden;
 }
 a {
   text-decoration: none;

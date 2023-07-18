@@ -1,5 +1,5 @@
 import "./PackageList.css"
-import imagePath from "../pics/info (2).png"
+import imagePath from "../pics/info.png"
 
 export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){
  

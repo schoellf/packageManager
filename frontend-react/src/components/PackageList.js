@@ -7,11 +7,11 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   const [openedVersions, setOpenedVersions] = useState(undefined);
   const [selectedVersions, setSelectedVersions] = useState([]);
 
-  function handleCheckedOrUncheckedPackage(_e, pkg) {
+  function handleCheckedOrUncheckedPackage(e, pkg) {
     if(!selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)) {
       //add to post request
       if(Object.keys(pkg.attributes.versions).length>1){
-        handleOpenVersions(pkg.id)
+        handleOpenVersions(e,pkg.id);
       }else{
         setSelectedPackages([...selectedPackages, 
           {
@@ -23,6 +23,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
         handleCloseVersions();
       }
+      e.stopPropagation();
     }
     else {
       //remove from post request
@@ -84,9 +85,10 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
   }
 
-  function handleOpenDescr(identifier) {
+  function handleOpenDescr(e,identifier) {
     setOpenedDescr(identifier);
     setOpenedVersions(undefined);
+    e.stopPropagation();
   }
 
   function handleCloseDescr() {
@@ -94,7 +96,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   }
 
   
-  function handleOpenVersions(identifier) {
+  function handleOpenVersions(e,identifier) {
     setOpenedVersions(identifier);
   }
 
@@ -113,7 +115,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
         style={{backgroundColor: (selectedPackages.find(p=>p.identifier==pkg.attributes.identifier))?"#e3c3fa":"white", flex: '0 0 150px', margin: '20px' }}      
       >
-        <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
+        <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={(e) => handleOpenDescr(e,pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
           {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} className="bi bi-question"></i>}
           {pkg.id === openedDescr && <p className="descriptionTag">{<span>
             <b>{pkg.attributes.name}</b><br></br>

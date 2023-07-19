@@ -111,7 +111,7 @@ query GetPackages {
         </div>
       </div>
       <div id='pageSlider' style={{position: "relative",left: selectedPage=="AP"?"0%":"-100%"}}>
-        <PackageList packages={searchedPackagesAP} selectedPackages={[]} setSelectedPackages={()=>{}} multiVersionSelect={true}></PackageList>
+        <PackageList packages={searchedPackagesAP} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} multiVersionSelect={true}></PackageList>
         <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore} multiVersionSelect={true}></PackageList>
       </div>
       <div id='divSubmit'>

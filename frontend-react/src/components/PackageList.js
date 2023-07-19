@@ -6,9 +6,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
 
-  function handleCheckedOrUncheckedPackage(e, pkg) {
-    console.log("handle")
-    console.log(pkg)
+  function handleCheckedOrUncheckedPackage(_e, pkg) {
     if(!selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)) {
       //add to post request
       if(Object.keys(pkg.attributes.versions).length>1){
@@ -31,6 +29,21 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       newSeletedPackages.splice(newSeletedPackages.indexOf(newSeletedPackages.find(p=>p.identifier===pkg.attributes.identifier)), 1);
       setSelectedPackages([...newSeletedPackages])
     }
+  }
+
+  function handleVersionSelect(e, pkg, version){
+    console.log("versionselj")
+    setSelectedPackages([...selectedPackages, 
+      {
+        identifier: pkg.attributes.identifier, 
+        version: version.toString(),
+        path: pkg.attributes.versions[version.toString()]
+      }
+    ]);
+
+    handleCloseVersions();
+
+    e.stopPropagation();
   }
 
 
@@ -79,14 +92,14 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
         <div className="versionCard" onMouseLeave={handleCloseVersions} style={{marginLeft: pkg.id == openedVersions ? "0%": "100%",width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none'}}>
           <ul className="versionCardList">
-            {Object.keys(pkg.attributes.versions).map(v=><li>{v}</li>)}
+            {Object.keys(pkg.attributes.versions).map(v=><li onClick={(e)=>handleVersionSelect(e,pkg,v)}>{v}</li>)}
           </ul>
         </div>
 
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>
         </div>
-        <small>{"16.12.12"}</small>
+        <small>{selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)?.version||""}</small>
         <input type="checkbox" style={{ float: 'right' }} checked={selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)}/>
       </div>
     ))}

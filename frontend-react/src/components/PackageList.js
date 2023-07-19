@@ -6,9 +6,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
 
-  function handleCheckedOrUncheckedPackage(e, pkg) {
-    console.log("handle")
-    console.log(pkg)
+  function handleCheckedOrUncheckedPackage(_e, pkg) {
     if(!selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)) {
       //add to post request
       if(Object.keys(pkg.attributes.versions).length>1){
@@ -31,6 +29,21 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       newSeletedPackages.splice(newSeletedPackages.indexOf(newSeletedPackages.find(p=>p.identifier===pkg.attributes.identifier)), 1);
       setSelectedPackages([...newSeletedPackages])
     }
+  }
+
+  function handleVersionSelect(e, pkg, version){
+    console.log("versionselj")
+    setSelectedPackages([...selectedPackages, 
+      {
+        identifier: pkg.attributes.identifier, 
+        version: version.toString(),
+        path: pkg.attributes.versions[version.toString()]
+      }
+    ]);
+
+    handleCloseVersions();
+
+    e.stopPropagation();
   }
 
 
@@ -60,7 +73,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         key={pkg.id}
         className="package-card"
         onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
-        style={{backgroundColor: (selectedPackages.find(p=>p.identifier==pkg.attributes.identifier))?"gray":"white", flex: '0 0 150px', margin: '20px' }}      
+        style={{backgroundColor: (selectedPackages.find(p=>p.identifier==pkg.attributes.identifier))?"cyan":"white", flex: '0 0 150px', margin: '20px' }}      
       >
         <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
           {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} className="bi bi-question"></i>}
@@ -79,14 +92,14 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
         <div className="versionCard" onMouseLeave={handleCloseVersions} style={{marginLeft: pkg.id == openedVersions ? "0%": "100%",width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none'}}>
           <ul className="versionCardList">
-            {Object.keys(pkg.attributes.versions).map(v=><li>{v}</li>)}
+            {Object.keys(pkg.attributes.versions).map(v=><li onClick={(e)=>handleVersionSelect(e,pkg,v)}>{v}</li>)}
           </ul>
         </div>
 
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>
         </div>
-        <small>{"16.12.12"}</small>
+        <small>{selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)?.version||""}</small>
         <input type="checkbox" style={{ float: 'right' }} checked={selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)}/>
       </div>
     ))}

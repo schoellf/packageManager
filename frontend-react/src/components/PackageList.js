@@ -13,7 +13,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       if(Object.keys(pkg.attributes.versions).length>1){
         setOpenedVersions(pkg.id)
       }else{
-        setSelectedPackages([...selectedPackages, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
+        setSelectedPackages([...selectedPackages, pkg])
       }
     }
     else {
@@ -33,6 +33,8 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
     setOpenedDescr(undefined);
   }
 
+  
+
 
   return (
     <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow:"auto"}}>
@@ -40,7 +42,8 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       <div
         key={pkg.id}
         className="package-card"
-        style={{ flex: '0 0 150px', margin: '20px' }}
+        onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
+        style={{backgroundColor: (selectedPackages.find(p=>p.attributes.identifier==pkg.attributes.identifier))?"gray":"white", flex: '0 0 150px', margin: '20px' }}      
       >
         <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
           {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} className="bi bi-question"></i>}
@@ -65,7 +68,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
           <h2>{pkg.attributes.name}</h2>
         </div>
         <small>{pkg.attributes.url}</small>
-        <input type="checkbox" style={{ float: 'right' }} onChange={e => {handleCheckedOrUncheckedPackage(e, pkg)}} checked={selectedPackages.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]])!=-1}/>
+        <input type="checkbox" style={{ float: 'right' }} checked={selectedPackages.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]])!=-1}/>
       </div>
     ))}
     

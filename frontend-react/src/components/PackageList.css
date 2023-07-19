@@ -55,4 +55,41 @@
   .listVersions{
     margin: 0;
   }
+
+  .versionCard{
+    position: absolute;
+    top: 0;
+    right:0;
+    z-index: 10;
+    transition: 0.5s;
+    font-size: 12pt;
+    overflow: hidden;
+  }
+
+  .versionCard p{
+    margin: 0;
+    text-align: center;
+    position: absolute;
+  }
   
+  .versionCardList{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    max-height: 100%;
+    overflow: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+  }
+
+  .versionCardList li{
+    border: thin solid black;
+    margin: 5px;
+    border-radius: 3px;
+    background-color: lightgray;
+  }
+
+  .versionCardList::-webkit-scrollbar {
+    display: none;
+  }

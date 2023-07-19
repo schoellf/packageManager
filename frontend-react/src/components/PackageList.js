@@ -60,7 +60,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         key={pkg.id}
         className="package-card"
         onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
-        style={{backgroundColor: (selectedPackages.find(p=>p.identifier==pkg.attributes.identifier))?"gray":"white", flex: '0 0 150px', margin: '20px' }}      
+        style={{backgroundColor: (selectedPackages.find(p=>p.identifier==pkg.attributes.identifier))?"#e3c3fa":"white", flex: '0 0 150px', margin: '20px' }}      
       >
         <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={() => handleOpenDescr(pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
           {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} className="bi bi-question"></i>}

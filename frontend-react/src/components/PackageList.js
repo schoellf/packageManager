@@ -11,9 +11,11 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
     if(e.target.checked) {
       //add to post request
       if(Object.keys(pkg.attributes.versions).length>1){
-        setOpenedVersions(pkg.id)
+        handleOpenVersions(pkg.id)
       }else{
         setSelectedPackages([...selectedPackages, pkg])
+        handleCloseVersions();
+        setSelectedPackages([...selectedPackages, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
       }
     }
     else {
@@ -27,6 +29,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
   function handleOpenDescr(identifier) {
     setOpenedDescr(identifier);
+    setOpenedVersions(undefined);
   }
 
   function handleCloseDescr() {
@@ -34,6 +37,13 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   }
 
   
+  function handleOpenVersions(identifier) {
+    setOpenedVersions(identifier);
+  }
+
+  function handleCloseVersions() {
+    setOpenedVersions(undefined);
+  }
 
 
   return (
@@ -60,8 +70,10 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
             </span>}</p>}
         </div>
 
-        <div style={{marginLeft: pkg.id == openedVersions ? "0%": "100%",position: "absolute", top:0, right: 0 ,width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', zIndex: pkg.id == openedVersions ? '10' : '1', backgroundColor: pkg.id == openedVersions ? 'green' : '#8e2ad6', transition: "1s" }}>
-          
+        <div className="versionCard" onMouseLeave={handleCloseVersions} style={{marginLeft: pkg.id == openedVersions ? "0%": "100%",width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none'}}>
+          <ul className="versionCardList">
+            {Object.keys(pkg.attributes.versions).map(v=><li>{v}</li>)}
+          </ul>
         </div>
 
         <div className="packageName">

@@ -6,7 +6,6 @@ import PackageList from '../components/PackageList';
 
 
 
-
 const APPROVEDPACKAGES = gql`
 query GetApprovedPkgs {
   approvedPackages {
@@ -25,7 +24,7 @@ query GetApprovedPkgs {
 export default function ApprovePackagesPage() {
   const { loading, error, data } = useQuery(APPROVEDPACKAGES);
   const [searchText, setSearchText] = useState("");
-  const [selectedPackages, setSelectedPackages] = useState([[]]);
+  const [selectedPackages, setSelectedPackages] = useState([]);
   const searchedPackages = data?data["approvedPackages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
 
 
@@ -34,18 +33,14 @@ export default function ApprovePackagesPage() {
 
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
-
     if(e.target.checked) {
       //add to post request
-      setSelectedPackages([...selectedPackages, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
       
     }
     else {
       //delete from post request
-      
-      //let newSelectedPaths = [...selectedPaths];
       //newSelectedPaths.splice(newSelectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
-      //setSelectedPaths([...newSelectedPaths])
+
     }
   }
 
@@ -72,7 +67,7 @@ export default function ApprovePackagesPage() {
         />
       </div>
       <div className='listOfEntries'>
-        <PackageList packages={searchedPackages} selectedPaths={[]} setSelectedPaths={() => { }}></PackageList>
+        <PackageList packages={searchedPackages} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages}></PackageList>
       </div>
       <div id='divSubmit'>
         <button id='btnSubmit' onClick={handleDownload}>Download packages</button>

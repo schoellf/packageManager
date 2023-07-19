@@ -1,7 +1,7 @@
 import "./PackageList.css"
 import { useState } from "react";
 
-export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){
+export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore}){
 
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
@@ -13,14 +13,14 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
       if(Object.keys(pkg.attributes.versions).length>1){
         setOpenedVersions(pkg.id)
       }else{
-        setSelectedPaths([...selectedPaths, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
+        setSelectedPackages([...selectedPackages, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
       }
     }
     else {
       //remove from post request
-      let newSelectedPaths = [...selectedPaths];
-      newSelectedPaths.splice(newSelectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
-      setSelectedPaths([...newSelectedPaths])
+      let newSeletedPackages = [...selectedPackages];
+      newSeletedPackages.splice(newSeletedPackages.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
+      setSelectedPackages([...newSeletedPackages])
     }
   }
 
@@ -65,7 +65,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
           <h2>{pkg.attributes.name}</h2>
         </div>
         <small>{pkg.attributes.url}</small>
-        <input type="checkbox" style={{ float: 'right' }} onChange={e => {handleCheckedOrUncheckedPackage(e, pkg)}} checked={selectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]])!=-1}/>
+        <input type="checkbox" style={{ float: 'right' }} onChange={e => {handleCheckedOrUncheckedPackage(e, pkg)}} checked={selectedPackages.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]])!=-1}/>
       </div>
     ))}
     

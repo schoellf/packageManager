@@ -45,7 +45,7 @@ query GetPackages {
 
   const searchedPackagesAP = data?.approvedPackages.data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === "")
 
-  const [selectedPaths, setSelectedPaths] = useState([])
+  const [selectedPackages, setSelectedPackages] = useState([])
 
 
   if (loading) return <p>Loading...</p>
@@ -78,7 +78,7 @@ query GetPackages {
 
   function handleListChange(){
     
-    setSelectedPaths([]);
+    setSelectedPackages([]);
 
     if(selectedPage === "AP"){
       setQueryFilter(searchText);
@@ -86,7 +86,7 @@ query GetPackages {
   }
 
   return (
-    <div style={{height:"90%", overflow:"hidden"}} onClick={()=>console.log(selectedPaths)}>
+    <div style={{height:"90%", overflow:"hidden"}}>
       <div id='divControl'>
         <div className='searchbar'> 
           <input
@@ -111,8 +111,8 @@ query GetPackages {
         </div>
       </div>
       <div id='pageSlider' style={{position: "relative",left: selectedPage=="AP"?"0%":"-100%"}}>
-        <PackageList packages={searchedPackagesAP} selectedPaths={[]} setSelectedPaths={()=>{}}></PackageList>
-        <PackageList packages={data?.packages?.data} selectedPaths={selectedPaths} setSelectedPaths={setSelectedPaths} onLoadMore={handleLoadMore}></PackageList>
+        <PackageList packages={searchedPackagesAP} selectedPackages={[]} setSelectedPackages={()=>{}}></PackageList>
+        <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore}></PackageList>
       </div>
       <div id='divSubmit'>
           <button id='btnSubmit' onClick={handleBtnSubmit}>{selectedPage=="AV"?"Add Selected":"Remove Selected"}</button>

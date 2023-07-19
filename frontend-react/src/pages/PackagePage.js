@@ -115,7 +115,7 @@ query GetPackages {
         <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore} multiVersionSelect={true}></PackageList>
       </div>
       <div id='divSubmit'>
-          <button id='btnSubmit' onClick={handleBtnSubmit}>{selectedPage=="AV"?"Add Selected":"Remove Selected"}</button>
+        <button id='btnSubmit' onClick={handleBtnSubmit}>{selectedPage == "AV" ? "Add Selected" : "Remove Selected"}</button>
       </div>
     </div>
   );

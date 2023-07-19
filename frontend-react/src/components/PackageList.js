@@ -105,14 +105,21 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
     setSelectedVersions([]);
   }
 
+  function handleClickSideArrow() {
+    
+  }
+
 
   return (
-    <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow:"auto"}}>
-    {packages?.map((pkg) => (
-      <div
-        key={pkg.id}
-        className="package-card"
-        onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
+    <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow: "auto" }}>
+      <div onClick={handleClickSideArrow} className="sideBarArrow">
+      <i class="bi bi-arrow-right"></i>
+      </div>
+      {packages?.map((pkg) => (
+        <div
+          key={pkg.id}
+          className="package-card"
+          onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
         style={{backgroundColor: (selectedPackages.find(p=>p.identifier==pkg.attributes.identifier))?"#e3c3fa":"white", flex: '0 0 150px', margin: '20px' }}      
       >
         <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={(e) => handleOpenDescr(e,pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
@@ -144,8 +151,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         
       </div>
     ))}
-    
-      {onLoadMore && <button style={{margin: "20px", width: "150px", height: "80px"}} onClick={()=>{if(onLoadMore){onLoadMore()}}}>Load More</button>}
+          {onLoadMore && <button style={{margin: "20px", width: "150px", height: "80px"}} onClick={()=>{if(onLoadMore){onLoadMore()}}}>Load More</button>}
     </div>
   );
 }

@@ -94,3 +94,11 @@
   .versionCardList::-webkit-scrollbar {
     display: none;
   }
+
+  .sideBarArrow {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color:aqua;
+  }

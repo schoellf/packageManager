@@ -100,7 +100,6 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
           <h2>{pkg.attributes.name}</h2>
         </div>
         <small>{selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)?.version||""}</small>
-        <input type="checkbox" style={{ float: 'right' }} checked={selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)}/>
       </div>
     ))}
     

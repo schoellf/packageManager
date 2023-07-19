@@ -7,6 +7,7 @@ import HeaderSite from "./components/HeaderSite";
 
 const client = new ApolloClient({
   uri: 'http://10.10.10.138:1337/graphql',
+  // uri: 'http://localhost:1337/graphql',
   cache: new InMemoryCache()
 })
 

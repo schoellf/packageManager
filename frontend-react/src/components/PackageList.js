@@ -4,13 +4,17 @@ import { useState } from "react";
 export default function PackageList({packages, selectedPaths, setSelectedPaths, onLoadMore}){
 
   const [openedDescr, setOpenedDescr] = useState(undefined);
- 
+  const [openedVersions, setOpenedVersions] = useState(undefined);
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
     console.log("handle")
     if(e.target.checked) {
       //add to post request
-      setSelectedPaths([...selectedPaths, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
+      if(Object.keys(pkg.attributes.versions).length>1){
+        setOpenedVersions(pkg.id)
+      }else{
+        setSelectedPaths([...selectedPaths, pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]])
+      }
     }
     else {
       //remove from post request
@@ -26,7 +30,7 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
   }
 
   function handleCloseDescr() {
-    // setOpenedDescr(undefined);
+    setOpenedDescr(undefined);
   }
 
 
@@ -51,6 +55,10 @@ export default function PackageList({packages, selectedPaths, setSelectedPaths, 
             <br></br>
             {pkg.attributes.description}
             </span>}</p>}
+        </div>
+
+        <div style={{marginLeft: pkg.id == openedVersions ? "0%": "100%",position: "absolute", top:0, right: 0 ,width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', zIndex: pkg.id == openedVersions ? '10' : '1', backgroundColor: pkg.id == openedVersions ? 'green' : '#8e2ad6', transition: "1s" }}>
+          
         </div>
 
         <div className="packageName">

@@ -1,10 +1,11 @@
 import "./PackageList.css"
 import { useState } from "react";
 
-export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore}){
+export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore, multiVersionSelect}){
 
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
+  const [selectedVersions, setSelectedVersions] = useState([]);
 
   function handleCheckedOrUncheckedPackage(_e, pkg) {
     if(!selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)) {
@@ -15,8 +16,8 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         setSelectedPackages([...selectedPackages, 
           {
             identifier: pkg.attributes.identifier, 
-            version: Object.keys(pkg.attributes.versions)[0],
-            path: pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]
+            versions: [Object.keys(pkg.attributes.versions)[0]],
+            paths: [pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]]
           }
         ]);
 
@@ -31,21 +32,57 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
     }
   }
 
-  function handleVersionSelect(e, pkg, version){
-    console.log("versionselj")
-    setSelectedPackages([...selectedPackages, 
-      {
-        identifier: pkg.attributes.identifier, 
-        version: version.toString(),
-        path: pkg.attributes.versions[version.toString()]
+  function handleVersionsSelected(e, pkg,v){
+    let versions = selectedVersions;
+
+    if(versions.length>0){
+      if(multiVersionSelect){
+        let paths = [];
+        for(let v of versions){
+          paths.push(pkg.attributes.versions[v.toString()])
+        }
+        setSelectedPackages([...selectedPackages, 
+          {
+            identifier: pkg.attributes.identifier, 
+            versions:[...versions],
+            paths: [...paths]
+          }
+        ]);  
+      }else{
+        setSelectedPackages([...selectedPackages, 
+          {
+            identifier: pkg.attributes.identifier, 
+            versions:[v],
+            paths: [pkg.attributes.versions[v.toString()]]
+          }
+        ]);  
       }
-    ]);
+      setSelectedVersions([]);
+    }
 
     handleCloseVersions();
 
     e.stopPropagation();
   }
 
+  function handleVersionSelect(e,pkg,version){
+
+    if(multiVersionSelect){
+      let vIndex = selectedVersions.indexOf(version);
+      if(vIndex ===-1){
+        setSelectedVersions([...selectedVersions,version]);
+      }else{
+        let newSelV = [...selectedVersions];
+        newSelV.splice(vIndex,1);
+        setSelectedVersions([...newSelV]);
+      }
+    }else{
+      handleVersionsSelected(e,pkg,version);
+    }
+    
+    e.stopPropagation();
+
+  }
 
   function handleOpenDescr(identifier) {
     setOpenedDescr(identifier);
@@ -63,6 +100,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
   function handleCloseVersions() {
     setOpenedVersions(undefined);
+    setSelectedVersions([]);
   }
 
 
@@ -91,15 +129,17 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         </div>
 
         <div className="versionCard" onMouseLeave={handleCloseVersions} style={{marginLeft: pkg.id == openedVersions ? "0%": "100%",width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none'}}>
-          <ul className="versionCardList">
-            {Object.keys(pkg.attributes.versions).map(v=><li onClick={(e)=>handleVersionSelect(e,pkg,v)}>{v}</li>)}
+            {multiVersionSelect && <i class={selectedVersions.length>0?"bi bi-check-square":"bi bi-x-square"} onClick={(e)=>handleVersionsSelected(e,pkg)} style={{position: "absolute", top:"5%", right:"5%", width: "fit-content"}}></i>}          
+            <ul className="versionCardList" style={{marginRight: multiVersionSelect?"15%":"0%"}}>
+            {Object.keys(pkg.attributes.versions).map(v=><li style={{backgroundColor:selectedVersions.indexOf(v)===-1?"lightgray":"#8e2ad6"}} onClick={(e)=>handleVersionSelect(e,pkg,v)}>{v}</li>)}
           </ul>
         </div>
 
         <div className="packageName">
           <h2>{pkg.attributes.name}</h2>
         </div>
-        <small>{selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)?.version||""}</small>
+        <small>{selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)?.versions.map(v=><span>{v}<br></br></span>)}</small>
+        
       </div>
     ))}
     

@@ -1,3 +1,7 @@
+.listPkgs{
+  position: relative;
+}
+
 .packageDescr{
     background: #8e2ad6;
     position: absolute;

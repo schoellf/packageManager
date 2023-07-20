@@ -6,7 +6,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
   const [selectedVersions, setSelectedVersions] = useState([]);
-  const [openedSideBar, setOpenedSideBar] = useState(undefined);
+  const [openedSideBar, setOpenedSideBar] = useState(false);
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
     if(!selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)) {
@@ -110,23 +110,23 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   }
 
   function handleClickSideArrow() {
-    if(openedSideBar == undefined || openedSideBar == false) {
+    if(!openedSideBar) {
       setOpenedSideBar(true);
     }
     else {
-      if(openedSideBar == true) {
         setOpenedSideBar(false);
-      }
     }
   }
 
 
   return (
-    <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "100%", maxHeight: "100%", overflow: "auto" }}>
+    <div style={{overflow: "hidden", position: "relative",height: "100%"}}>
+      <div className="listSideBar" style={{ left: openedSideBar? '0' : '-255px'}}>
         <div onClick={handleClickSideArrow} className="sideBarArrow">
-          <i class="bi bi-arrow-right"></i>
+          <i class={openedSideBar?"bi bi-arrow-left":"bi bi-arrow-right"}></i>
+          <div className="selNumInfo">{selectedPackages?.length||0}</div>
         </div>
-      <div className="listSideBar" style={{ left: openedSideBar == true ? '2%' : '-250px'}}>
+        <h2>Selected Packages</h2>
         <ul className="slideList">
           {selectedPackages?.map((pkg) => (
             <li key={pkg.name}>
@@ -140,6 +140,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
           ))}
         </ul>
       </div>
+      <ul className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow: "auto" }}>
       {packages?.map((pkg) => (
         <div
           key={pkg.id}
@@ -177,6 +178,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       </div>
     ))}
           {onLoadMore && <button style={{margin: "20px", width: "150px", height: "80px"}} onClick={()=>{if(onLoadMore){onLoadMore()}}}>Load More</button>}
+    </ul> 
     </div>
   );
 }

@@ -95,10 +95,38 @@
     display: none;
   }
 
+
   .sideBarArrow {
     position: fixed;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
     background-color:aqua;
+  }
+
+  .listSideBar {
+    position: absolute;
+    top: 0;
+    left: -250px; /* Initial position off-screen */
+    width: 200px;
+    height: 100%;
+    background-color: #f0f0f0;
+    transition: left 0.3s ease; /* Transition to make it slide in smoothly */
+    z-index: 10;
+    color:#8e2ad6;
+    border: 2px solid #8e2ad6;
+    max-height: 500px;
+  }
+
+  .slideList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+  }
+
+  
+  .slideList li {
+    padding: 10px;
+    border: thin solid red;
   }

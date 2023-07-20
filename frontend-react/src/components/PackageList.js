@@ -6,6 +6,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
   const [selectedVersions, setSelectedVersions] = useState([]);
+  const [openedSideBar, setOpenedSideBar] = useState(undefined);
 
   function handleCheckedOrUncheckedPackage(e, pkg) {
     if(!selectedPackages.find(p=>p.identifier===pkg.attributes.identifier)) {
@@ -15,6 +16,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       }else{
         setSelectedPackages([...selectedPackages, 
           {
+            name: pkg.attributes.name,
             identifier: pkg.attributes.identifier, 
             versions: [Object.keys(pkg.attributes.versions)[0]],
             paths: [pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]]
@@ -44,6 +46,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
         }
         setSelectedPackages([...selectedPackages, 
           {
+            name: pkg.attributes.name,
             identifier: pkg.attributes.identifier, 
             versions:[...versions],
             paths: [...paths]
@@ -52,6 +55,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       }else{
         setSelectedPackages([...selectedPackages, 
           {
+            name: pkg.attributes.name,
             identifier: pkg.attributes.identifier, 
             versions:[v],
             paths: [pkg.attributes.versions[v.toString()]]
@@ -106,14 +110,35 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   }
 
   function handleClickSideArrow() {
-    
+    if(openedSideBar == undefined || openedSideBar == false) {
+      setOpenedSideBar(true);
+    }
+    else {
+      if(openedSideBar == true) {
+        setOpenedSideBar(false);
+      }
+    }
   }
 
 
   return (
     <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow: "auto" }}>
-      <div onClick={handleClickSideArrow} className="sideBarArrow">
-      <i class="bi bi-arrow-right"></i>
+        <div onClick={handleClickSideArrow} className="sideBarArrow">
+          <i class="bi bi-arrow-right"></i>
+        </div>
+      <div className="listSideBar" style={{ left: openedSideBar == true ? '2%' : '-250px'}}>
+        <ul className="slideList">
+          {selectedPackages?.map((pkg) => (
+            <li key={pkg.name}>
+              {pkg.name}
+              <ul>
+                {pkg?.versions.map((version) => (
+                  <li key={version}>{version}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
       </div>
       {packages?.map((pkg) => (
         <div

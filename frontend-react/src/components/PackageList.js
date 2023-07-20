@@ -122,7 +122,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
 
   return (
-    <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "fit-content", maxHeight: "100%", overflow: "auto" }}>
+    <div className="listPkgs" style={{ display: 'flex', flexWrap: 'wrap', height: "100%", maxHeight: "100%", overflow: "auto" }}>
         <div onClick={handleClickSideArrow} className="sideBarArrow">
           <i class="bi bi-arrow-right"></i>
         </div>

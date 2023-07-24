@@ -184,3 +184,7 @@
     padding-top: 0;
     padding-bottom: 0;
   }
+
+  .slideListVersions:hover{
+    background-image: radial-gradient(transparent, red);
+  }

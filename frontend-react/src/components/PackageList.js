@@ -118,6 +118,25 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
     }
   }
 
+  function handleRemoveSelected (e, pkg, version) {
+    //let pkgToChange = selectedPackages.find(p => pkg.identifier == p.identifier);
+
+    if(pkg.versions.length > 1) {
+      let newVersions = [...pkg.versions];
+      let clonedSelectedPackages = [...selectedPackages];
+
+      newVersions.splice(newVersions.indexOf(version), 1);
+      clonedSelectedPackages[selectedPackages.indexOf(pkg)].versions = newVersions;
+      setSelectedPackages([...clonedSelectedPackages]);
+    }
+    else {
+      let clonedSelectedPackages = [...selectedPackages];
+      
+      clonedSelectedPackages.splice(clonedSelectedPackages.indexOf(pkg), 1);
+      setSelectedPackages([...clonedSelectedPackages]);  
+    }
+  }
+
 
   return (
     <div style={{overflow: "hidden", position: "relative",height: "100%"}}>
@@ -133,7 +152,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
               {pkg.name}
               <ul>
                 {pkg?.versions.map((version) => (
-                  <li key={version}>{version}</li>
+                  <li onClick={(e) => handleRemoveSelected(e, pkg, version)} className="slideListVersions" key={version}>{version}</li>
                 ))}
               </ul>
             </li>

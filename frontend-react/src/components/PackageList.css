@@ -186,5 +186,5 @@
   }
 
   .slideListVersions:hover{
-    background-image: radial-gradient(transparent, red);
+    background-image: radial-gradient(transparent 0.5%, rgba(128, 128, 128, 0.27));
   }

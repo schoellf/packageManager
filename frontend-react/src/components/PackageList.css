@@ -1,192 +1,240 @@
+.pkgListMainContainer {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+
+.listSideBar {
+  position: absolute;
+  top: 0;
+  left: -250px; /* Initial position off-screen */
+  width: 250px;
+  height: 99%;
+  background-color: #f0f0f0;
+  transition: left 0.3s ease; /* Transition to make it slide in smoothly */
+  z-index: 10;
+  color:#8e2ad6;
+  border: 2px solid #8e2ad6;
+  max-height: 500px;
+  font-size: initial;
+  text-align: center;
+}
+
+.listSideBar h2{
+  height: 10%;
+  margin: 10px;
+  border-bottom: thin solid #8e2ad6;
+}
+
+
+.sideBarArrow {
+  position: absolute;
+  top: 45%;
+  right: -30px;
+  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  display: grid;
+  place-items: center;
+  justify-content: right;
+  z-index: 1;
+  background-image: linear-gradient(to right, transparent 40%, #8e2ad6);
+}
+
+.sideBarArrow i{
+  color: black;
+  z-index: 1;
+  font-size: 20pt;
+}
+
+
+.selNumInfo{
+  border-radius: 100%;
+  font-size: 15px;
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  color: black;
+  opacity: 0.7;
+}
+
+
+.slideList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  z-index: 10;
+  text-align: center;
+  height: 85%;
+}
+
+.slideList ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: thin solid #8e2ad6;
+  margin-bottom: 10px;
+}
+
+.slideList li {
+  padding: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+.slideListVersions:hover{
+  background-image: radial-gradient(transparent 0.5%, rgba(128, 128, 128, 0.27));
+}
+
+
 .listPkgs{
   position: relative;
   height: 100%;
   padding: 0;
   margin-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  height: fit-content;
+  max-height: 100%;
+  overflow: auto;
 }
 
-.packageDescr{
-    background: #8e2ad6;
-    position: absolute;
-    top:0;
-    left: 0px;
-    transition: 0.5s;
-    z-index: 1;
-    font-size: 3em;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    float: left;
-    margin-right: 10px;
-    border: 3px solid #8e2ad6;
-    overflow: hidden;
-}
 
 .package-card {
-    background: white;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-    margin: 40px auto;
-    padding: 1px 20px 20px 45px;
-    position: relative;
-    transition: 0.5s;
-    height: fit-content;
-    min-height: 80px;
-  }
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin: 40px auto;
+  padding: 1px 20px 20px 45px;
+  position: relative;
+  transition: 0.5s;
+  height: fit-content;
+  min-height: 80px;
+  flex: 0 0 140px;
+  margin: 20px;
+}
 
-  .package-card h2 {
-    margin-bottom: 0;
-    font-size: medium;
-  }
+.package-card h2 {
+  margin-bottom: 0;
+  font-size: medium;
+}
 
-  .package-card small {
-    margin-right: 10px;
-    color: #777;
-  }
-
-  .descriptionTag {
-    font-size: 12pt;
-    color: rgb(53, 20, 20);
-    padding-left: 15px;
-    padding-right: 15px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    text-align: left;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-  }
+.package-card small {
+  margin-right: 10px;
+  color: #777;
+}
 
 
-  .listVersions{
-    margin: 0;
-  }
+.packageDescr{
+  background: #8e2ad6;
+  position: absolute;
+  top:0;
+  left: 0px;
+  transition: 0.5s;
+  z-index: 1;
+  font-size: 3em;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-right: 10px;
+  border: 3px solid #8e2ad6;
+  overflow: hidden;
+}
 
-  .versionCard{
-    position: absolute;
-    top: 0;
-    right:0;
-    z-index: 10;
-    transition: 0.5s;
-    font-size: 12pt;
-    overflow: hidden;
-  }
 
-  .versionCard p{
-    margin: 0;
-    text-align: center;
-    position: absolute;
-  }
+.descriptionTag {
+  font-size: 12pt;
+  color: rgb(53, 20, 20);
+  padding-left: 15px;
+  padding-right: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  text-align: left;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+
+.listVersions{
+  margin: 0;
+}
+
+
+.versionCard{
+  position: absolute;
+  top: 0;
+  right:0;
+  z-index: 10;
+  transition: 0.5s;
+  font-size: 12pt;
+  overflow: hidden;
+}
+
+.versionCard p{
+  margin: 0;
+  text-align: center;
+  position: absolute;
+}
+
+
+.versionCardList{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  max-height: 100%;
+  overflow: auto;
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+}
+
+.versionCardList li{
+  border: thin solid black;
+  margin: 5px;
+  border-radius: 3px;
+  background-color: lightgray;
+}
+
+.versionCardList::-webkit-scrollbar {
+  display: none;
+}
+
+
+.loadMore {
+  margin: 20px;
+  width: 150px;
+  height: 80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-  .versionCardList{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    max-height: 100%;
-    overflow: auto;
-    -ms-overflow-style: none;  
-    scrollbar-width: none; 
-  }
-
-  .versionCardList li{
-    border: thin solid black;
-    margin: 5px;
-    border-radius: 3px;
-    background-color: lightgray;
-  }
-
-  .versionCardList::-webkit-scrollbar {
-    display: none;
-  }
 
 
-  
-  .listSideBar {
-    position: absolute;
-    top: 0;
-    left: -250px; /* Initial position off-screen */
-    width: 250px;
-    height: 99%;
-    background-color: #f0f0f0;
-    transition: left 0.3s ease; /* Transition to make it slide in smoothly */
-    z-index: 10;
-    color:#8e2ad6;
-    border: 2px solid #8e2ad6;
-    max-height: 500px;
-    font-size: initial;
-    text-align: center;
-  }
-
-  .sideBarArrow {
-    position: absolute;
-    top: 45%;
-    right: -30px;
-    border-radius: 30px;
-    height: 50px;
-    width: 50px;
-    display: grid;
-    place-items: center;
-    justify-content: right;
-    z-index: 1;
-    background-image: linear-gradient(to right, transparent 40%, #8e2ad6);
-  }
-
-  .sideBarArrow i{
-    color: black;
-    z-index: 1;
-    font-size: 20pt;
-  }
-
-  .selNumInfo{
-    border-radius: 100%;
-    font-size: 15px;
-    width: 25px;
-    height: 25px;
-    background-color: red;
-    position: absolute;
-    top: -10px;
-    right: -5px;
-    color: black;
-    opacity: 0.7;
-  }
-
-  .listSideBar h2{
-    height: 10%;
-    margin: 10px;
-    border-bottom: thin solid #8e2ad6;
-  }
 
 
-  .slideList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    overflow: auto;
-    z-index: 10;
-    text-align: center;
-    height: 85%;
-  }
 
-  .slideList ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    border: thin solid #8e2ad6;
-    margin-bottom: 10px;
-  }
-  
-  .slideList li {
-    padding: 10px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .slideListVersions:hover{
-    background-image: radial-gradient(transparent 0.5%, rgba(128, 128, 128, 0.27));
-  }

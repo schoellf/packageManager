@@ -66,16 +66,9 @@ export default function ApprovePackagesPage() {
   }
 
   return (
-    <div style={{height:"90%", overflow:"hidden"}}>
+    <div className='approvedPkgsPageWrapper'>
       <div className='searchbarAP'>
-        <input
-          style={{
-            width: '300px',
-            height: '30px',
-            borderRadius: '5px',
-            border: 'solid darkblue',
-            marginBottom: '10px'
-          }}
+        <input className='searchbarInput'
           type="text"
           placeholder="Suchen..."
           value={searchText}
@@ -85,7 +78,7 @@ export default function ApprovePackagesPage() {
       <div className='listOfEntries'>
         <PackageList packages={searchedPackages} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages}></PackageList>
       </div>
-      <a href={installerFile} ref={downloadRef} download={"Opera.Opera&7zip.exe"}   style={{display:"none"}}>Download</a>
+      <a href={installerFile} ref={downloadRef} download={"Opera.Opera&7zip.exe"} style={{display:"none"}}>Download</a>
       <div id='divSubmit'>
         <button id='btnSubmit' onClick={handleDownload}>Download packages</button>
       </div>

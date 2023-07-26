@@ -5,7 +5,7 @@ html{
 }
 
 body {
-  margin: 0 30px;
+  margin: 0;
   font-family: "Poppins";
   background: #f1f1f1;
   height: 100%;
@@ -20,7 +20,6 @@ h1,h2,h3,h4 {
   font-size: 1.2em;
   margin: 0px;
   width: 100%;
-  padding: 20px;
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
@@ -30,6 +29,10 @@ a {
   color: #8e2ad6;
   border-bottom: 1px dotted;
 }
+.header-site{
+  margin: 20px;
+}
+
 .header-site h1 {
   font-size: 1.5em;
   color: #8e2ad6;

@@ -5,6 +5,7 @@ import PackageList from '../components/PackageList';
 import "./PackagePage.css"
 import "../../node_modules/react-bootstrap/Button"
 import Button from '../../node_modules/react-bootstrap/Button';
+import "../components/PackageList.js";
 
 
 export default function PackagePage() {

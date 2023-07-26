@@ -21,7 +21,8 @@
     width: fit-content;
     float: left;
     place-self: left;
-    margin-left: 20px;
+    margin-left: 50px;
+    padding: 0;
 }
 
 #divChangeList{

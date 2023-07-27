@@ -5,40 +5,40 @@
 
 
 .searchbarAP{
-    display: grid;
-    place-items: center;
     height: 10%;
+    place-items: center;
+    display: grid;
 }
 
 
 .searchbarInput {
     width: 300px;
     height: 30px;
-    border-radius: 5px;
-    border: solid darkblue;
     margin-bottom: 10px;
+    border: solid darkblue;
+    border-radius: 5px;
 }
 
 
 .listOfEntries{
+    height: 75%;
     width: 100%;
     overflow: hidden;
-    height: 75%;
 }
 
 
 #divSubmit{
-    display: grid;
-    place-items: center;
     height: 15%;
+    place-items: center;
+    display: grid;
 }
 
 
 #btnSubmit{
-    height: 50%;
-    width: 50%;
     font-size: large;
     font-weight: bold;
-    border-radius: 30px;
+    height: 50%;
+    width: 50%;
     border: thin solid #8e2ad6;
+    border-radius: 30px;
 }

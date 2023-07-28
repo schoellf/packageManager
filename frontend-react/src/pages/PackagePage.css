@@ -85,7 +85,8 @@
 #divSubmit{
     height: 15%;
     place-items: center;
-    display: grid;
+    height: 15%;
+    position: relative;
 }
 
 

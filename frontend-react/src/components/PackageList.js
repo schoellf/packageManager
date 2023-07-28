@@ -1,7 +1,8 @@
+import BusyIndicator from "./BusyIndicator";
 import "./PackageList.css"
 import { useState } from "react";
 
-export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore, multiVersionSelect}){
+export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore, multiVersionSelect, working, workingHeader, workingText}){
 
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
@@ -137,9 +138,27 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
     }
   }
 
+  //function to sort versions correctly
+  function compareVersions(versionA, versionB) {
+    const a = versionA.split('.').map(Number);
+    const b = versionB.split('.').map(Number);
+  
+    for (let i = 0; i < Math.max(a.length, b.length); i++) {
+      if (a[i] === undefined) return -1; 
+      if (b[i] === undefined) return 1; 
+  
+      if (a[i] > b[i]) return -1;
+      if (a[i] < b[i]) return 1;       
+    }
+    console.log("sort")
+    return 0;
+  }
+  
+
 
   return (
     <div className="pkgListMainContainer">
+      {working && <BusyIndicator header={workingHeader||"Busy"} text={workingText||""}></BusyIndicator>}
       <div className="listSideBar" style={{ left: openedSideBar ? '0' : '-255px' }}>
         <div onClick={handleClickSideArrow} className="sideBarArrow">
           <i class={openedSideBar ? "bi bi-arrow-left" : "bi bi-arrow-right"}></i>
@@ -173,7 +192,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
                 <b>{pkg.attributes.name}</b><br></br>
                 <i>Versions:</i>
                 <ul className="listVersions">
-                  {Object.keys(pkg.attributes.versions).map(v => <li key={pkg.id + v.toString()}>{v}</li>)}
+                  {Object.keys(pkg.attributes.versions).sort(compareVersions).map(v => <li key={pkg.id + v.toString()}>{v}</li>)}
                 </ul>
                 <br></br>
                 <i>Description:</i>
@@ -183,10 +202,10 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
             </div>
 
             <div className="versionCard" onMouseLeave={handleCloseVersions} style={{ marginLeft: pkg.id == openedVersions ? "0%" : "100%", width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none' }}>
-              {multiVersionSelect && <i class={selectedVersions.length > 0 ? "bi bi-check-square" : "bi bi-x-square"} onClick={(e) => handleVersionsSelected(e, pkg)} style={{ position: "absolute", top: "5%", right: "5%", width: "fit-content" }}></i>}
+              {multiVersionSelect && <i className={selectedVersions.length > 0 ? "bi bi-check-square" : "bi bi-x-square"} onClick={(e) => handleVersionsSelected(e, pkg)} style={{ position: "absolute", top: "5%", right: "5%", width: "fit-content" }}></i>}
               <ul className="versionCardList" style={{ marginRight: multiVersionSelect ? "15%" : "0%" }}>
-                {Object.keys(pkg.attributes.versions).map(v => <li key={pkg.id + v.toString()} style={{ backgroundColor: selectedVersions.indexOf(v) === -1 ? "lightgray" : "#8e2ad6" }} onClick={(e) => handleVersionSelect(e, pkg, v)}>{v}</li>)}
-              </ul>
+                {Object.keys(pkg.attributes.versions).sort(compareVersions).map(v => <li key={pkg.id + v.toString()} style={{ backgroundColor: selectedVersions.indexOf(v) === -1 ? "lightgray" : "#8e2ad6" }} onClick={(e) => handleVersionSelect(e, pkg, v)}>{v}</li>)}
+                </ul>
             </div>
 
             <div className="packageName">

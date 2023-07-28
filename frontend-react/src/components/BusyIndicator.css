@@ -1,0 +1,38 @@
+.divBusy{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-content: center;
+    z-index: 20;
+    backdrop-filter: blur(4px);
+}
+
+@property --p {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 10%;
+}
+
+.divBusyText{
+    width: fit-content;
+    height: fit-content;
+    max-height: 100%;
+    padding: 50px;
+    background: radial-gradient(circle, rgba(255,255,255,1) var(--p), rgba(142,42,214,1) 100%);
+    animation: loadingAnim 3s infinite backwards;
+    border-radius: 10px;
+
+}
+
+@keyframes loadingAnim {
+    0%{--p:68%;}
+    50%{--p: 90%;}
+    100%{--p: 68%;}
+}
+
+.divBusyText *{
+    margin: 0;
+}

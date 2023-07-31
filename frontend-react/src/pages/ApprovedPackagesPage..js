@@ -7,7 +7,7 @@ import installerFile from "../extraFiles/installer.exe";
 
 const APPROVEDPACKAGES = gql`
 query GetApprovedPkgs {
-  packages{
+  approvedPackages{
     data {
       id,
       attributes { 
@@ -24,7 +24,7 @@ export default function ApprovePackagesPage() {
   const { loading, error, data } = useQuery(APPROVEDPACKAGES);
   const [searchText, setSearchText] = useState("");
   const [selectedPackages, setSelectedPackages] = useState([]);
-  const searchedPackages = data?data["packages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
+  const searchedPackages = data?data["approvedPackages"].data.filter(pkg => pkg.attributes.name.toUpperCase().includes(searchText.toUpperCase()) || searchText === ""):[]
 
   const [buildingExe, setBuildingExe] = useState(false);
 
@@ -63,7 +63,7 @@ export default function ApprovePackagesPage() {
     if(selectedPackages.length>0){
       setBuildingExe(true);
 
-      fetch('http://localhost:1337/api/exe', {
+      fetch('http://10.10.10.144:1337/api/exe', {
         method: 'POST',
         body: JSON.stringify(selectedPackages)
       })

@@ -114,6 +114,7 @@ query GetPackages {
             setWorking(true);
           }else{
             setWorking(false);
+
           }
         })
       }
@@ -143,11 +144,11 @@ query GetPackages {
   //triggering github workflow
 
   function handleAddPkgs(){
-    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": "token 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"})
+    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": "token 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"})
   }
 
   function handleRemovePkgs(){
-    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": "token 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"})
+    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": "token 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"})
   }
 
 

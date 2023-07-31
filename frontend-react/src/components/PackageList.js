@@ -150,10 +150,9 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       if (a[i] > b[i]) return -1;
       if (a[i] < b[i]) return 1;       
     }
-    console.log("sort")
     return 0;
   }
-  
+
 
 
   return (
@@ -161,7 +160,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
       {working && <BusyIndicator header={workingHeader||"Busy"} text={workingText||""}></BusyIndicator>}
       <div className="listSideBar" style={{ left: openedSideBar ? '0' : '-255px' }}>
         <div onClick={handleClickSideArrow} className="sideBarArrow">
-          <i class={openedSideBar ? "bi bi-arrow-left" : "bi bi-arrow-right"}></i>
+          <i className={openedSideBar ? "bi bi-arrow-left" : "bi bi-arrow-right"}></i>
           <div className="selNumInfo">{selectedPackages?.length || 0}</div>
         </div>
         <h2>Selected Packages</h2>

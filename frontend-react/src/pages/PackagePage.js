@@ -29,7 +29,7 @@ query GetPackages {
       }
     }
   }
-  approvedPackages {
+  approvedPackages (pagination:{page:1, pageSize: 9999}) {
     data {
       id,
       attributes { 
@@ -72,11 +72,18 @@ query GetPackages {
   }
 
   function handleBtnSubmit(e){
-
-    if(selectedPage == "AV"){
-      console.log("push")
+    getSelectedPaths()
+    if(working){
+      getStatus();
     }else{
-      console.log("delete")
+      if(selectedPage == "AV"){
+        console.log("push")
+        handleAddPkgs();
+      }else{
+        console.log("delete")
+        handleRemovePkgs();
+      }
+      setWorking(true);
     }
   }
 
@@ -113,6 +120,36 @@ query GetPackages {
     })
   };
 
+  function getSelectedPaths(){
+    let paths = [];
+    for(let selpack of selectedPackages){
+      for(let ver of selpack.versions){
+        paths.push(selpack.paths[selpack.versions.indexOf(ver)]);
+      }
+    }
+    return paths;
+  }
+  
+  function getSelectedIdentifiers(){
+    let ids = [];
+    for(let selpack of selectedPackages){
+      if(ids.indexOf(selpack.identifier)===-1){
+        ids.push(selpack.identifier);
+      }
+    }
+    return ids;
+  }
+
+  //triggering github workflow
+
+  function handleAddPkgs(){
+    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": "token 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"})
+  }
+
+  function handleRemovePkgs(){
+    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": "token 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"})
+  }
+
 
   return (
     <div id='pkgPageWrapper'>
@@ -137,7 +174,7 @@ query GetPackages {
         <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore} multiVersionSelect={true} working={working} workingHeader={"Repository working"} workingText={"This might take a few minutes..."}></PackageList>
       </div>
       <div id='divSubmit'>
-        <button id='btnSubmit' disabled={working} onClick={handleBtnSubmit}>{selectedPage == "AV" ? "Add Selected" : "Remove Selected"}</button>
+        <button id='btnSubmit' onClick={handleBtnSubmit}>{working?"Reload":selectedPage == "AV" ? "Add Selected" : "Remove Selected"}</button>
       </div>
     </div>
   );

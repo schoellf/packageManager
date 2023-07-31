@@ -1,4 +1,4 @@
-let packageString = 'Zxilly.NotifyCli%0.1.1'
+let packageString = 'Zulip.Zulip%5.9.1.0'
 //a string with all packages will be written above this
 
 const { execSync } = require('child_process');

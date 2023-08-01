@@ -16,6 +16,10 @@ const [queryFilter, setQueryFilter] = useState("");
 
 const [working, setWorking] = useState(false);
 
+const GITTOKEN = process.env.REACT_APP_WEATHER_GIT_TOKEN;
+
+console.log(GITTOKEN)
+
 const PACKAGES = gql`
 query GetPackages {
   packages ( filters:{name:{containsi:"${queryFilter}"}}, pagination:{page:1, pageSize: ${dataSize}}) {
@@ -74,11 +78,11 @@ query GetPackages {
   function handleBtnSubmit(e){
    console.log(getSelectedIdentifiers())
     if(selectedPage == "AV"){
-      console.log("push")
+      console.log("add")
       handleAddPkgs();
     }else{
-      console.log("delete")
-      //handleRemovePkgs();
+      console.log("remove")
+      handleRemovePkgs();
     }
     setWorking(true);
     setTimeout(getStatus,20000);
@@ -145,11 +149,23 @@ query GetPackages {
   //triggering github workflow
 
   function handleAddPkgs(){
-    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": "token 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"})
+    restClient.get("http://localhost:1337/api/token")
+    .then(response => response.data)
+    .then(data => {
+      if(data.length>0){
+        restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": `token ${data}`})
+      }
+    })
   }
 
   function handleRemovePkgs(){
-    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": "token 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"})
+    restClient.get("http://localhost:1337/api/token")
+    .then(response => response.data)
+    .then(data => {
+      if(data.length>0){
+        restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": `token ${data}`})
+      }
+    })
   }
 
 

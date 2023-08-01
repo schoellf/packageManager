@@ -14,7 +14,7 @@ const [dataSize, setDataSize] = useState(DEFAULTDATASIZE);
 const [searchText, setSearchText] = useState("");
 const [queryFilter, setQueryFilter] = useState("");
 
-const [working, setWorking] = useState(true);
+const [working, setWorking] = useState(false);
 
 const PACKAGES = gql`
 query GetPackages {
@@ -51,7 +51,7 @@ query GetPackages {
   const [selectedPackages, setSelectedPackages] = useState([])
 
 
-  useEffect(getStatus,[]);
+  useEffect(()=>getStatus(true),[]);
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
@@ -72,19 +72,16 @@ query GetPackages {
   }
 
   function handleBtnSubmit(e){
-    getSelectedPaths()
-    if(working){
-      getStatus();
+   console.log(getSelectedIdentifiers())
+    if(selectedPage == "AV"){
+      console.log("push")
+      handleAddPkgs();
     }else{
-      if(selectedPage == "AV"){
-        console.log("push")
-        handleAddPkgs();
-      }else{
-        console.log("delete")
-        handleRemovePkgs();
-      }
-      setWorking(true);
+      console.log("delete")
+      //handleRemovePkgs();
     }
+    setWorking(true);
+    setTimeout(getStatus,20000);
   }
 
   function handleListChange(){
@@ -97,7 +94,7 @@ query GetPackages {
   }
 
 
-  function getStatus(){
+  function getStatus(initialCall){
     console.log("call");
     restClient.get("https://api.github.com/repos/benidxd5/benidxd5.github.io/actions/runs?status=in_progress")
     .then((response) => response.data)
@@ -105,6 +102,7 @@ query GetPackages {
       console.log(data)
       if(data.total_count>0){
         setWorking(true);
+        setTimeout(getStatus,2000);
       }else{
         restClient.get("https://api.github.com/repos/benidxd5/benidxd5.github.io/actions/runs?status=queued")
         .then((response) => response.data)
@@ -112,9 +110,12 @@ query GetPackages {
           console.log(data)
           if(data.total_count>0){
             setWorking(true);
+            setTimeout(getStatus,2000);
           }else{
-            setWorking(false);
-
+            if(!initialCall){
+              setWorking(false);
+              window.location.reload();
+            }
           }
         })
       }
@@ -144,11 +145,11 @@ query GetPackages {
   //triggering github workflow
 
   function handleAddPkgs(){
-    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": "token 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"})
+    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgadd", "client_payload":{"pkgPaths":getSelectedPaths().toString()}},{"Authorization": "token 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"})
   }
 
   function handleRemovePkgs(){
-    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": "token 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"})
+    restClient.post("https://api.github.com/repos/benidxd5/benidxd5.github.io/dispatches",{"event_type": "pkgrem", "client_payload":{"pkgPaths":getSelectedPaths().toString(), "pkgIdentifiers": getSelectedIdentifiers().toString()}},{"Authorization": "token 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"})
   }
 
 
@@ -175,7 +176,7 @@ query GetPackages {
         <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore} multiVersionSelect={true} working={working} workingHeader={"Repository working"} workingText={"This might take a few minutes..."}></PackageList>
       </div>
       <div id='divSubmit'>
-        <button id='btnSubmit' onClick={handleBtnSubmit}>{working?"Reload":selectedPage == "AV" ? "Add Selected" : "Remove Selected"}</button>
+        <button id='btnSubmit' disabled={working} onClick={handleBtnSubmit}>{selectedPage == "AV" ? "Add Selected" : "Remove Selected"}</button>
       </div>
     </div>
   );

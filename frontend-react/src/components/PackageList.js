@@ -185,7 +185,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
             onClick={(e) => handleCheckedOrUncheckedPackage(e, pkg)}
             style={{ backgroundColor: (selectedPackages.find(p => p.identifier == pkg.attributes.identifier)) ? "#e3c3fa" : "white"}}
           >
-            <div style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={(e) => handleOpenDescr(e, pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
+            <div key={pkg.id} style={{ width: pkg.id == openedDescr ? '150%' : '20px', height: pkg.id == openedDescr ? '250%' : '20px', zIndex: pkg.id == openedDescr ? '10' : '1', backgroundColor: pkg.id == openedDescr ? 'white' : '#8e2ad6' }} onClick={(e) => handleOpenDescr(e, pkg.id)} onMouseLeave={handleCloseDescr} className="packageDescr">
               {pkg.id !== openedDescr && <i style={{ fontSize: '20px' }} className="bi bi-question"></i>}
               {pkg.id === openedDescr && <p className="descriptionTag">{<span>
                 <b>{pkg.attributes.name}</b><br></br>
@@ -200,7 +200,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
               </span>}</p>}
             </div>
 
-            <div className="versionCard" onMouseLeave={handleCloseVersions} style={{ marginLeft: pkg.id == openedVersions ? "0%" : "100%", width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none' }}>
+            <div key={pkg.id+"versions"} className="versionCard" onMouseLeave={handleCloseVersions} style={{ marginLeft: pkg.id == openedVersions ? "0%" : "100%", width: pkg.id == openedVersions ? '100%' : '0%', height: '100%', backgroundColor: pkg.id == openedVersions ? 'white' : '#8e2ad6', border: pkg.id == openedVersions ? 'thin solid #8e2ad6' : 'none' }}>
               {multiVersionSelect && <i className={selectedVersions.length > 0 ? "bi bi-check-square" : "bi bi-x-square"} onClick={(e) => handleVersionsSelected(e, pkg)} style={{ position: "absolute", top: "5%", right: "5%", width: "fit-content" }}></i>}
               <ul className="versionCardList" style={{ marginRight: multiVersionSelect ? "15%" : "0%" }}>
                 {Object.keys(pkg.attributes.versions).sort(compareVersions).map(v => <li key={pkg.id + v.toString()} style={{ backgroundColor: selectedVersions.indexOf(v) === -1 ? "lightgray" : "#8e2ad6" }} onClick={(e) => handleVersionSelect(e, pkg, v)}>{v}</li>)}

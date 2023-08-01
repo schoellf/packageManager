@@ -35,17 +35,6 @@ export default function ApprovePackagesPage() {
   if (loading) return <p>Loading...</p>
   if (error) return <p>error!</p>
 
-  function handleCheckedOrUncheckedPackage(e, pkg) {
-    if(e.target.checked) {
-      //add to post request
-      
-    }
-    else {
-      //delete from post request
-      //newSelectedPaths.splice(newSelectedPaths.indexOf(pkg.attributes.versions[Object.keys(pkg.attributes.versions)[0]]), 1);
-
-    }
-  }
 
   function getExeFilename(){
     let filename = "";

@@ -72,7 +72,6 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
   }
 
   function handleVersionSelect(e,pkg,version){
-
     if(multiVersionSelect){
       let vIndex = selectedVersions.indexOf(version);
       if(vIndex ===-1){

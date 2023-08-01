@@ -1,4 +1,4 @@
-let packageString = 'HS2N.PAKETTEST%1.0.0'
+let packageString = 'zxch3n.PomodoroLogger%0.6.3'
 //a string with all packages will be written above this
 
 const { execSync } = require('child_process');

@@ -1,4 +1,4 @@
-let packageString = 'Zulip.Zulip%5.9.1.0'
+let packageString = 'Notepad++.Notepad++%8.4.7'
 //a string with all packages will be written above this
 
 const { execSync } = require('child_process');

@@ -4,7 +4,7 @@ import { useQuery, gql } from '@apollo/client'
 import { useState } from 'react';
 import PackageList from '../components/PackageList';
 import installerFile from "../extraFiles/installer.exe";
-import { notifyInfo } from '../services/notifyer';
+import { notifyError, notifyInfo, notifySuccess } from '../services/notifyer';
 
 const APPROVEDPACKAGES = gql`
 query GetApprovedPkgs {
@@ -50,8 +50,6 @@ export default function ApprovePackagesPage() {
 
 
   function handleDownload(e) {
-    notifyInfo("Request to build .exe sent!");
-
     if(selectedPackages.length>0){
       setBuildingExe(true);
 
@@ -61,6 +59,7 @@ export default function ApprovePackagesPage() {
       })
         .then((response) => {
           if (!response.ok) {
+            notifyError("The network response was not ok");
             throw new Error('Network response was not ok');
           }
           return response.blob();
@@ -75,6 +74,7 @@ export default function ApprovePackagesPage() {
         })
         .catch((error) => {
           setBuildingExe(false);
+          notifyError("There was an Error fetching the file: " + error);
           console.error('Error fetching the file:', error);
         });
     }

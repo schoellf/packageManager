@@ -16,6 +16,7 @@ const [queryFilter, setQueryFilter] = useState("");
 
 const [working, setWorking] = useState(false);
 
+
 const PACKAGES = gql`
 query GetPackages {
   packages ( filters:{name:{containsi:"${queryFilter}"}}, pagination:{page:1, pageSize: ${dataSize}}) {
@@ -50,6 +51,8 @@ query GetPackages {
 
   const [selectedPackages, setSelectedPackages] = useState([])
 
+  const [timeRemaining, setTimeRemaining] = useState(0);
+
 
   useEffect(()=>getStatus(true),[]);
 
@@ -81,7 +84,6 @@ query GetPackages {
       handleRemovePkgs();
     }
     setWorking(true);
-    setTimeout(getStatus,20000);
   }
 
   function handleListChange(){
@@ -93,8 +95,12 @@ query GetPackages {
     }
   }
 
-
-  function getStatus(initialCall){
+  /*
+    @Params: 
+      repeatTillFound: recall function, if no workflow is running
+      reloadOnFalse: reload page, if no workflow is running (after completion)
+  */
+  function getStatus(repeatTillFound,reloadOnFalse){
     console.log("call");
     restClient.get("https://api.github.com/repos/benidxd5/benidxd5.github.io/actions/runs?status=in_progress")
     .then((response) => response.data)
@@ -102,7 +108,8 @@ query GetPackages {
       console.log(data)
       if(data.total_count>0){
         setWorking(true);
-        setTimeout(getStatus,2000);
+        setTimeout(()=>getStatus(false,true),2000);
+        setTimeRemaining(getEstimatedTime(data.workflow_runs[0]))
       }else{
         restClient.get("https://api.github.com/repos/benidxd5/benidxd5.github.io/actions/runs?status=queued")
         .then((response) => response.data)
@@ -110,17 +117,67 @@ query GetPackages {
           console.log(data)
           if(data.total_count>0){
             setWorking(true);
-            setTimeout(getStatus,2000);
+            setTimeout(()=>getStatus(false,true),2000);
+            setTimeRemaining(getEstimatedTime(data.workflow_runs[0]))
+
           }else{
-            if(!initialCall){
-              setWorking(false);
-              window.location.reload();
-            }
+            restClient.get("https://api.github.com/repos/benidxd5/benidxd5.github.io/actions/runs?status=pending")
+            .then((response) => response.data)
+            .then((data)=>{
+              console.log(data)
+              if(data.total_count>0){
+                setWorking(true);
+                setTimeout(()=>getStatus(false,true),2000);
+                setTimeRemaining(getEstimatedTime(data.workflow_runs[0]))
+
+              }else{
+                
+                if(repeatTillFound)
+                  setTimeout(()=>getStatus(true,false),5000);
+                
+                if(reloadOnFalse)
+                  window.location.reload();
+                  //working reset to false
+              }
+            }) 
           }
         })
       }
     })
   };
+
+  function getEstimatedTime(workflow){
+    console.log("wf")
+    console.log(workflow)
+    if(workflow){
+      let workflowStart = new Date(workflow["run_started_at"]).getTime();
+      let runningFor = new Date().getTime()-workflowStart;
+      let duration = 0;
+      switch(workflow["display_title"]){
+        case "pkgadd": duration = 80000 + 180000 + 60000; //1min 20s + 3min + 1min
+                      break;
+  
+        case "pkgrem": duration = 80000 + 180000 + 60000; //1min 20s + 3min + 1min
+                      break;
+  
+        case ".github/workflows/release.yml": duration = 180000 + 60000; //3min + 1min
+                                          break;
+  
+                    
+        default: duration = 0;
+        
+      }
+      console.log(duration-runningFor)
+      if(duration - runningFor > 0){
+        return Math.floor((duration-runningFor)/1000);
+      }else{
+        return 0;
+      }
+    }else{
+      return "a few";
+    }
+    
+  }
 
   function getSelectedPaths(){
     let paths = [];
@@ -184,8 +241,8 @@ query GetPackages {
         </div>
       </div>
       <div id='pageSlider' style={{position: "relative",left: selectedPage=="AP"?"0%":"-100%"}}>
-        <PackageList packages={searchedPackagesAP} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} multiVersionSelect={true} working={working} workingHeader={"Repository working"} workingText={"This might take a few minutes..."}></PackageList>
-        <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore} multiVersionSelect={true} working={working} workingHeader={"Repository working"} workingText={"This might take a few minutes..."}></PackageList>
+        <PackageList packages={searchedPackagesAP} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} multiVersionSelect={true} working={working} workingHeader={"Repository working"} workingText={"This might take a few minutes..."} timeRemaining={timeRemaining}></PackageList>
+        <PackageList packages={data?.packages?.data} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} onLoadMore={handleLoadMore} multiVersionSelect={true} working={working} workingHeader={"Repository working"} workingText={"This might take a few minutes..."} timeRemaining={timeRemaining}></PackageList>
       </div>
       <div id='divSubmit'>
         <button id='btnSubmit' disabled={working} onClick={handleBtnSubmit}>{selectedPage == "AV" ? "Add Selected" : "Remove Selected"}</button>

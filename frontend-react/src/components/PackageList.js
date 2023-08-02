@@ -2,7 +2,7 @@ import BusyIndicator from "./BusyIndicator";
 import "./PackageList.css"
 import { useState } from "react";
 
-export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore, multiVersionSelect, working, workingHeader, workingText}){
+export default function PackageList({packages, selectedPackages, setSelectedPackages, onLoadMore, multiVersionSelect, working, workingHeader, workingText, timeRemaining}){
 
   const [openedDescr, setOpenedDescr] = useState(undefined);
   const [openedVersions, setOpenedVersions] = useState(undefined);
@@ -156,7 +156,7 @@ export default function PackageList({packages, selectedPackages, setSelectedPack
 
   return (
     <div className="pkgListMainContainer">
-      {working && <BusyIndicator header={workingHeader||"Busy"} text={workingText||""}></BusyIndicator>}
+      {working && <BusyIndicator header={workingHeader||"Busy"} text={workingText||""} timeRemaining={timeRemaining}></BusyIndicator>}
       <div className="listSideBar" style={{ left: openedSideBar ? '0' : '-255px' }}>
         <div onClick={handleClickSideArrow} className="sideBarArrow">
           <i className={openedSideBar ? "bi bi-arrow-left" : "bi bi-arrow-right"}></i>

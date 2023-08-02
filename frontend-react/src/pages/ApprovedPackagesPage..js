@@ -93,7 +93,7 @@ export default function ApprovePackagesPage() {
       <div className='listOfEntries'>
         <PackageList packages={searchedPackages} selectedPackages={selectedPackages} setSelectedPackages={setSelectedPackages} working={buildingExe} workingHeader={"Building File"} workingText={"This might take a few seconds..."}></PackageList>
       </div>
-      <a href={installerFile} ref={downloadRef} download={"Opera.Opera&7zip.exe"} style={{display:"none"}}>Download</a>
+      <a href={installerFile} ref={downloadRef} download={""} style={{display:"none"}}>Download</a>
       <div id='divSubmit'>
         <button id='btnSubmit' disabled={buildingExe || selectedPackages.length===0} onClick={handleDownload}>Download packages</button>
       </div>

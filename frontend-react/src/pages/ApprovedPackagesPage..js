@@ -7,7 +7,7 @@ import installerFile from "../extraFiles/installer.exe";
 
 const APPROVEDPACKAGES = gql`
 query GetApprovedPkgs {
-  approvedPackages {
+  approvedPackages (pagination:{page:1, pageSize: 9999}) {
     data {
       id,
       attributes { 

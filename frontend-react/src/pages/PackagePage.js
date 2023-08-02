@@ -16,10 +16,6 @@ const [queryFilter, setQueryFilter] = useState("");
 
 const [working, setWorking] = useState(false);
 
-const GITTOKEN = process.env.REACT_APP_WEATHER_GIT_TOKEN;
-
-console.log(GITTOKEN)
-
 const PACKAGES = gql`
 query GetPackages {
   packages ( filters:{name:{containsi:"${queryFilter}"}}, pagination:{page:1, pageSize: ${dataSize}}) {

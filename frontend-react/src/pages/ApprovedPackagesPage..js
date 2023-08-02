@@ -4,6 +4,7 @@ import { useQuery, gql } from '@apollo/client'
 import { useState } from 'react';
 import PackageList from '../components/PackageList';
 import installerFile from "../extraFiles/installer.exe";
+import { notifyInfo } from '../services/notifyer';
 
 const APPROVEDPACKAGES = gql`
 query GetApprovedPkgs {
@@ -49,6 +50,8 @@ export default function ApprovePackagesPage() {
 
 
   function handleDownload(e) {
+    notifyInfo("Request to build .exe sent!");
+
     if(selectedPackages.length>0){
       setBuildingExe(true);
 

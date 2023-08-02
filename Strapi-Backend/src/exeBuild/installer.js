@@ -1,4 +1,4 @@
-let packageString = 'zxch3n.PomodoroLogger%0.6.3'
+let packageString = 'ZelloInc.Zello%2.6.0.0'
 //a string with all packages will be written above this
 
 const { execSync } = require('child_process');

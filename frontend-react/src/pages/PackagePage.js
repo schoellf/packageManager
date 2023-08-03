@@ -51,7 +51,7 @@ query GetPackages {
 
   const [selectedPackages, setSelectedPackages] = useState([])
 
-  const [timeRemaining, setTimeRemaining] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState("a few ");
 
 
   useEffect(()=>getStatus(true),[]);
@@ -171,7 +171,7 @@ query GetPackages {
       if(duration - runningFor > 0){
         return Math.floor((duration-runningFor)/1000);
       }else{
-        return 0;
+        return "a few";
       }
     }else{
       return "a few";
